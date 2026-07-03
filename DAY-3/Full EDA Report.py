@@ -1,4 +1,6 @@
+import sys
 import pandas as pd
+from pathlib import Path
 
 def eda_report(df):
 
@@ -22,9 +24,19 @@ def eda_report(df):
         print(df[col].value_counts())
 
 # Test on Student Dataset
-df1 = pd.read_csv("student-mat.csv")
+s_path = Path(__file__).parent / "student-mat.csv"
+if not s_path.exists():
+    s_path = Path("student-mat.csv")
+if not s_path.exists():
+    print(f"Error: {s_path} not found. Place 'student-mat.csv' in the script folder or CWD.")
+    sys.exit(1)
+df1 = pd.read_csv(s_path)
 eda_report(df1)
 
 # Test on CloudWatch Dataset
-df2 = pd.read_csv("cloudwatch_server_resource_anomaly_predictor_100k.csv")
-eda_report(df2)
+cw_path = Path("cloudwatch_server_resource_anomaly_predictor_100k.csv")
+if cw_path.exists():
+    df2 = pd.read_csv(cw_path)
+    eda_report(df2)
+else:
+    print(f"\nNote: {cw_path} not found — skipping CloudWatch EDA.")

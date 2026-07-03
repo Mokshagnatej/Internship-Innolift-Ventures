@@ -1,18 +1,23 @@
+#!/usr/bin/env python3
+from pathlib import Path
+import sys
 import pandas as pd
 
-df = pd.read_csv("student-mat.csv")
 
-print("Shape:")
-print(df.shape)
+def main():
+	p = Path(__file__).parent / "student-mat.csv"
+	if not p.exists():
+		p = Path("student-mat.csv")
+	if not p.exists():
+		print("Error: 'student-mat.csv' not found in script or CWD.")
+		sys.exit(1)
 
-print("\nColumn Names:")
-print(df.columns)
+	df = pd.read_csv(p)
+	print("Shape:", df.shape)
+	print("\nFirst 3 rows:\n", df.head(3).to_string(index=False))
+	if "internet" in df.columns:
+		print("\nInternet counts:\n", df["internet"].value_counts(dropna=False))
 
-print("\nFirst 3 Rows:")
-print(df.head(3))
 
-print("\nLast 3 Rows:")
-print(df.tail(3))
-
-print("\nInternet Access Count:")
-print(df["internet"].value_counts())
+if __name__ == "__main__":
+	main()
