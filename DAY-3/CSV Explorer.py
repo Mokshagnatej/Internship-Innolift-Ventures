@@ -1,6 +1,6 @@
 import pandas as pd
 
-df = pd.read_csv("student-mat.csv")
+df = pd.read_csv("cloudwatch_server_resource_anomaly_predictor_100k.csv")
 
 print("Shape:")
 print(df.shape)
