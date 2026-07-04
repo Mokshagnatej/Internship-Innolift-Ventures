@@ -1,272 +1,447 @@
-# 📊 NumPy & Pandas Practice Exercises
+# 📊 Student Data Analysis with NumPy & Pandas
 
-## 📖 Overview
+A beginner-friendly Python project demonstrating the power of **NumPy** and **Pandas** for data analysis, data cleaning, feature engineering, exploratory data analysis (EDA), correlation analysis, pivot tables, and DataFrame merging.
 
-This repository contains six beginner-friendly Python exercises that cover the fundamentals of **NumPy** and **Pandas**. These tasks are designed to help understand how to work with arrays, DataFrames, CSV files, missing values, grouping data, and performing basic Exploratory Data Analysis (EDA).
-
-These exercises are perfect for students who are starting with data analysis using Python.
+This project contains **10 practical tasks** that gradually introduce important data analysis concepts using both manually created datasets and the **Student Performance Dataset (`student-mat.csv`)**.
 
 ---
 
-# 📂 Exercises Included
-
-## 1️⃣ NumPy Marks Analyser
-
-### Objective
-
-Create a NumPy array containing marks of 10 students and calculate useful statistics.
-
-### Concepts Covered
-
-- Creating NumPy arrays
-- Mean
-- Maximum & Minimum
-- Standard Deviation
-- Boolean Filtering
-- Counting values
-
-### What the program does
-
-- Stores marks in a NumPy array.
-- Calculates the average marks.
-- Finds the highest and lowest marks.
-- Computes the standard deviation.
-- Counts how many students passed (marks ≥ 50).
-- Prints a simple summary report.
-
-### Sample Output
+# 📁 Project Structure
 
 ```
-Average Marks : 65.3
-Highest Marks : 92
-Lowest Marks  : 38
-Passed        : 8
-Failed        : 2
-```
-
----
-
-## 2️⃣ DataFrame Builder
-
-### Objective
-
-Create a Pandas DataFrame manually and perform basic inspection.
-
-### Concepts Covered
-
-- Creating DataFrames
-- Viewing rows
-- Checking shape
-- Viewing data types
-- Adding new columns
-
-### What the program does
-
-- Creates a DataFrame of 5 students.
-- Displays the first few rows.
-- Shows the shape of the DataFrame.
-- Displays each column's data type.
-- Adds a new column named **Result** that labels students as **Pass** or **Fail** based on marks.
-
-### Sample Output
-
-| Name | Age | City | Marks | Result |
-|------|-----|------|-------|--------|
-| Alice | 20 | New York | 85 | Pass |
-| Bob | 21 | Chicago | 45 | Fail |
-
----
-
-## 3️⃣ CSV Explorer
-
-### Objective
-
-Learn how to load and inspect a CSV file.
-
-### Concepts Covered
-
-- Reading CSV files
-- Viewing rows
-- Column names
-- Dataset shape
-- Value counts
-
-### What the program does
-
-- Loads the **student-mat.csv** dataset.
-- Displays:
-  - Dataset shape
-  - Column names
-  - First three rows
-  - Last three rows
-- Counts how many students have internet access.
-
-### Functions Used
-
-- `pd.read_csv()`
-- `head()`
-- `tail()`
-- `value_counts()`
-
----
-
-## 4️⃣ Missing Data Detective
-
-### Objective
-
-Handle missing values in a dataset.
-
-### Concepts Covered
-
-- Detecting null values
-- Filling missing numeric values
-- Filling missing text values
-
-### What the program does
-
-- Finds missing values in every column.
-- Replaces missing numeric values with the column mean.
-- Replaces missing text values with **Unknown**.
-- Verifies that no missing values remain.
-
-### Functions Used
-
-- `isnull()`
-- `fillna()`
-- `select_dtypes()`
-
----
-
-## 5️⃣ Group & Compare
-
-### Objective
-
-Analyze student performance using grouping operations.
-
-### Concepts Covered
-
-- GroupBy
-- Mean
-- Sorting
-- Largest values
-
-### What the program does
-
-- Calculates average final grade (**G3**) by study time.
-- Calculates average grade by gender.
-- Finds the top 5 students based on final grade.
-
-### Functions Used
-
-- `groupby()`
-- `mean()`
-- `nlargest()`
-
----
-
-## 6️⃣ Full EDA Report
-
-### Objective
-
-Create a reusable function for basic Exploratory Data Analysis.
-
-### Concepts Covered
-
-- Functions
-- Data inspection
-- Descriptive statistics
-- Missing value analysis
-- Categorical analysis
-
-### What the program does
-
-The `eda_report(df)` function automatically displays:
-
-- Dataset shape
-- Missing values
-- Statistical summary
-- Value counts for categorical columns
-
-This function can be reused for any dataset.
-
-Example:
-
-```python
-eda_report(df)
-```
-
----
-
-# 🛠 Technologies Used
-
-- Python 3
-- NumPy
-- Pandas
-
----
-
-# 📁 Recommended Folder Structure
-
-```
-Project/
+project/
 │
-├── student-mat.csv
-├── cloudwatch_server_resource_anomaly_predictor_100k.csv
-├── numpy_marks.py
-├── dataframe_builder.py
-├── csv_explorer.py
-├── missing_data.py
-├── group_compare.py
-├── eda_report.py
-└── README.md
+├── student-mat.csv      # Main dataset
+├── main.py              # Python program
+├── README.md            # Project documentation
 ```
 
 ---
 
-# ▶️ How to Run
+# 🎯 Project Objectives
 
-### Install the required libraries
+The project demonstrates how to:
+
+- Work with NumPy arrays
+- Create and manipulate Pandas DataFrames
+- Read CSV files
+- Handle missing values
+- Perform grouping and aggregation
+- Generate basic EDA reports
+- Engineer new features
+- Create pivot tables
+- Analyze correlations
+- Merge multiple DataFrames
+
+---
+
+# 📦 Requirements
+
+Install the required libraries before running the project.
 
 ```bash
 pip install numpy pandas
 ```
 
-### Run any Python file
+---
+
+# ▶️ Running the Project
+
+Place the dataset **student-mat.csv** in the same folder as the Python script.
+
+Run:
 
 ```bash
-python numpy_marks.py
+python main.py
 ```
 
-or
+If the dataset is missing, the program will automatically skip dataset-related tasks while still executing the NumPy and DataFrame examples.
 
-```bash
-python eda_report.py
+---
+
+# 📂 Dataset
+
+The project uses the **Student Performance Dataset**.
+
+File:
+
+```
+student-mat.csv
 ```
 
----
+The dataset contains information about students including:
 
-# 🎯 Learning Outcomes
+- School
+- Gender
+- Age
+- Study time
+- Internet access
+- Family information
+- Grades (G1, G2, G3)
 
-After completing these exercises, you will be able to:
-
-- Create and manipulate NumPy arrays.
-- Build and modify Pandas DataFrames.
-- Read and explore CSV datasets.
-- Detect and handle missing values.
-- Perform group-based analysis.
-- Generate a basic EDA report for any dataset.
-- Understand essential data analysis workflows in Python.
+Final grade (`G3`) is used throughout the project for analysis.
 
 ---
 
-# 💡 Notes
+# 📝 Task 1 — NumPy Marks Analyser
 
-- Ensure the CSV files are in the same folder as your Python scripts.
-- If your dataset has different column names, update the code accordingly.
-- The EDA function is reusable and can be applied to any CSV file loaded into a Pandas DataFrame.
+### Objective
+
+Demonstrates basic NumPy operations.
+
+### Operations
+
+- Create a NumPy array
+- Calculate mean
+- Find maximum value
+- Find minimum value
+- Calculate standard deviation
+- Count students who passed
+
+### Example Output
+
+```
+Mean: 65.70
+Highest: 95
+Lowest: 33
+Standard Deviation: ...
+Students Passed: 7/10
+```
+
+### Concepts Used
+
+- numpy.array()
+- mean()
+- max()
+- min()
+- std()
+- Boolean indexing
 
 ---
 
-# 📚 Conclusion
+# 📝 Task 2 — DataFrame Builder
 
-These exercises provide a practical introduction to Python-based data analysis using NumPy and Pandas. They cover common tasks such as creating arrays and DataFrames, reading CSV files, cleaning missing data, grouping records, and summarizing datasets. Together, they form a solid foundation for further learning in data analysis, machine learning, and data science.
+### Objective
+
+Create a Pandas DataFrame manually.
+
+### Operations
+
+Creates student information including:
+
+- Name
+- Age
+- City
+- Marks
+
+Adds a new column:
+
+```
+Result
+```
+
+using
+
+```python
+np.where()
+```
+
+Students with marks ≥ 50 are marked as **Pass**, otherwise **Fail**.
+
+### Concepts Used
+
+- pd.DataFrame()
+- Column creation
+- np.where()
+
+---
+
+# 📝 Task 3 — CSV Explorer
+
+### Objective
+
+Load and inspect the dataset.
+
+### Operations
+
+Displays:
+
+- Dataset shape
+- First three rows
+- Internet access distribution
+
+### Concepts Used
+
+- read_csv()
+- head()
+- shape
+- value_counts()
+
+---
+
+# 📝 Task 4 — Missing Data Detective
+
+### Objective
+
+Handle missing values.
+
+### Operations
+
+Creates a sample DataFrame containing missing values.
+
+Missing numeric values are replaced with:
+
+```
+Column Mean
+```
+
+Missing text values are replaced with:
+
+```
+Unknown
+```
+
+### Concepts Used
+
+- fillna()
+- mean()
+- select_dtypes()
+
+---
+
+# 📝 Task 5 — Group & Compare
+
+### Objective
+
+Perform grouped analysis.
+
+### Operations
+
+Calculates:
+
+Average Final Grade (G3)
+
+grouped by
+
+```
+Study Time
+```
+
+Also displays:
+
+Top 3 students with highest final grades.
+
+### Concepts Used
+
+- groupby()
+- mean()
+- nlargest()
+
+---
+
+# 📝 Task 6 — Full EDA Report
+
+### Objective
+
+Generate a quick exploratory data analysis report.
+
+### Displays
+
+- Dataset shape
+- Missing values
+- Statistical summary
+
+### Concepts Used
+
+- describe()
+- isnull()
+- sum()
+
+---
+
+# 📝 Task 7 — Feature Engineering (Grade Binning)
+
+### Objective
+
+Convert numerical grades into letter grades.
+
+Uses:
+
+```python
+pd.cut()
+```
+
+### Grade Mapping
+
+| Score | Letter Grade |
+|--------|--------------|
+| 0–9 | F (Fail) |
+| 10–11 | D (Pass) |
+| 12–13 | C (Satisfactory) |
+| 14–15 | B (Good) |
+| 16–20 | A (Excellent) |
+
+Also prints grade distribution.
+
+### Concepts Used
+
+- Feature Engineering
+- pd.cut()
+- value_counts()
+
+---
+
+# 📝 Task 8 — Pivot Tables
+
+### Objective
+
+Summarize grades across multiple categories.
+
+Creates a pivot table showing:
+
+Average Final Grade
+
+based on
+
+- Gender
+- Internet Access
+
+### Concepts Used
+
+- pivot_table()
+- aggfunc='mean'
+
+---
+
+# 📝 Task 9 — Correlation Analysis
+
+### Objective
+
+Identify which numerical features are most related to the final grade.
+
+Calculates correlation matrix and displays:
+
+- Highest positive correlations
+- Highest negative correlations
+
+### Concepts Used
+
+- corr()
+- sort_values()
+
+---
+
+# 📝 Task 10 — DataFrame Merging
+
+### Objective
+
+Combine two DataFrames.
+
+Creates a second DataFrame containing school metadata:
+
+| School | Type | Funding |
+|---------|------|----------|
+| GP | Public | High |
+| MS | Private | Medium |
+
+Then merges it with the student dataset.
+
+### Concepts Used
+
+- merge()
+- Left Join
+
+---
+
+# 📚 Python Concepts Covered
+
+- Variables
+- Arrays
+- DataFrames
+- CSV Reading
+- Missing Data Handling
+- Aggregation
+- Grouping
+- Feature Engineering
+- Pivot Tables
+- Correlation Analysis
+- DataFrame Merging
+
+---
+
+# 📊 Libraries Used
+
+## NumPy
+
+Used for:
+
+- Numerical calculations
+- Mean
+- Standard deviation
+- Boolean indexing
+
+Official documentation:
+
+https://numpy.org/doc/
+
+---
+
+## Pandas
+
+Used for:
+
+- DataFrames
+- CSV handling
+- Cleaning data
+- Grouping
+- Pivot tables
+- Correlation
+- Merging
+
+Official documentation:
+
+https://pandas.pydata.org/docs/
+
+---
+
+# 🚀 Skills Demonstrated
+
+✔ NumPy Basics
+
+✔ Pandas Fundamentals
+
+✔ Data Cleaning
+
+✔ Exploratory Data Analysis
+
+✔ Feature Engineering
+
+✔ Data Aggregation
+
+✔ Pivot Tables
+
+✔ Correlation Analysis
+
+✔ Data Merging
+
+✔ Real Dataset Analysis
+
+---
+
+# 📌 Future Improvements
+
+Possible extensions include:
+
+- Data visualization using Matplotlib
+- Data visualization using Seaborn
+- Machine Learning prediction models
+- Interactive dashboard using Streamlit
+- Exporting reports to Excel or PDF
+
+---
+
+# 👨‍💻 Author
+
+Developed as a hands-on Python Data Analysis project using **NumPy** and **Pandas** to demonstrate essential data analysis techniques with real-world student performance data.
+
+---
