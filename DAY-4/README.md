@@ -6,15 +6,7 @@ Built with **Python**, **Pandas**, **Matplotlib**, and **Scikit-Learn**, this pr
 
 ---
 
-## 📑 Table of Contents
-* [Project Overview](#project-overview)
-* [Key Features](#key-features)
-* [Exploratory Data Analysis (EDA)](#exploratory-data-analysis-eda)
-* [Predictive Modeling](#predictive-modeling)
-* [Model Evaluation](#model-evaluation)
-* [Setup & Installation](#setup--installation)
 
----
 
 ## 🚀 Project Overview
 
