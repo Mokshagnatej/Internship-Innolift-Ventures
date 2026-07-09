@@ -1,26 +1,44 @@
-# Internship-at-innolift
+# Internship at Innolift Ventures
 
+This repository documents my internship learning journey across two tracks. It includes beginner Python programs, data analysis exercises, machine learning pipelines, anomaly detection experiments, model comparison work, and notebook-based visualizations.
 
-# 🚀 Day 1: My Developer Profile Card
+## Repository Structure
 
-Welcome to Day 1 of my Python coding journey! 
-today, I built a simple but foundational program: a **Developer Profile Card**. 
+```text
+.
+├── Track-1/
+│   ├── DAY-1/   # Developer profile card
+│   ├── DAY-2/   # Control flow, loops, and logic scripts
+│   ├── DAY-3/   # NumPy and Pandas student data analysis
+│   ├── DAY-4/   # Student performance prediction model
+│   └── DAY-5/   # CloudWatch anomaly predictor
+├── Track-2/
+│   ├── DAY-6/   # Machine learning experiments notebook
+│   ├── DAY-7/   # CloudWatch anomaly visualization
+│   ├── DAY-8/   # Anomaly detection impact and iteration report
+│   └── DAY-9/   # Anomaly model comparison and leakage analysis
+└── model.pkl    # Saved model artifact
+```
 
-This script takes my personal details, stores them in the computer's memory, and then prints them out as a neat, formatted ID card in the terminal. It’s a small step, but it perfectly demonstrates how Python handles different types of data and displays text.
+## Track 1 Overview
 
-## 🌟 What Does This Code Do?
-When you run this script, it outputs a clean, 
+Track 1 starts with Python fundamentals and gradually moves into data analysis and machine learning projects.
 
-text-based profile card showing:
->my name
-> age
-> what I'm currently learning
->my previous coding experience
-><img width="765" height="253" alt="Screenshot 2026-07-01 at 14 18 00" src="https://github.com/user-attachments/assets/356c59a1-ec8c-46f7-b919-b029166da6a9" />
- my ultimate career goal. 
+### [Day 1: My Developer Profile Card](Track-1/DAY-1)
 
-Here is what the output looks like:
+Day 1 introduced basic Python variables, data types, and formatted terminal output through a simple **Developer Profile Card**.
 
+The program stores personal details in memory and prints them as a clean text-based card:
+
+- Name
+- Age
+- Current learning focus
+- Previous coding experience
+- Career goal
+
+Example output:
+
+```text
 =========================================
         MY DEVELOPER PROFILE CARD
 =========================================
@@ -30,76 +48,47 @@ Learning          : Python
 Has Coded Before? : True
 Goal              : Full Stack AI Developer
 =========================================
- 
-
-
-# Day 2: Control Flow, Loops, and Logic 🚀
-
-Welcome to Day 2 of my Python journey! Today's focus was on making programs actually *do* things based on different conditions. I moved past basic printing and started building small, interactive scripts that use loops, conditional statements, and basic functions.
-
-This repository contains five beginner-friendly projects that demonstrate how to control the flow of a Python program.
-
-
-## 🛠️ What's in this folder?
-
-Here is a breakdown of the scripts I wrote today and the key concepts each one covers:
-
-### 1. `Atmpinchecker.py`
-A simple ATM login simulator that gives the user three tries to enter a hardcoded PIN. 
-* **Key Concepts:** `for` loops, `break` statements to exit a loop early, and Python's unique `for-else` construct (which triggers if the account gets blocked after 3 failed attempts).
-
-### 2. `Evenoddsorter.py`
-This script asks the user for a set of numbers and then separates them into two different lists: one for even numbers and one for odds.
-* **Key Concepts:** Working with empty lists `[]`, using the `.append()` method, and applying the modulo operator (`%`) to check for remainders.
-
-### 3. `gradecalculator.py`
-A classic school grading system. It takes marks for 5 subjects, calculates the percentage, and assigns a letter grade (A+ through F).
-* **Key Concepts:** Sequential logic, type casting (`float()`), and building an `if-elif-else` ladder to handle multiple conditions.
-
-### 4. `Multiplicationtablegenerator.py`
-A quick utility that takes a single number as input and generates its multiplication table from 1 to 10.
-* **Key Concepts:** The `range()` function and f-strings for clean string formatting.
-
-### 5. `Numberguess.py`
-A mini-game where the user has 3 attempts to guess a randomly generated number between 1 and 10.
-* **Key Concepts:** Importing external modules (`import random`), defining and calling custom functions (`def check_guess()`), and combining loops with conditional logic.
-
----
-
-## 🚀 How to Run the Code
-
-To run any of these scripts, you just need Python installed on your machine. 
-
-1. Clone or download this repository.
-2. Open your terminal or command prompt.
-3. Navigate to the folder containing the files.
-4. Run a script using the `python` command followed by the filename. 
-
-
-
-# Day 3: 📊 Student Data Analysis with NumPy & Pandas
-
-A beginner-friendly Python project demonstrating the power of **NumPy** and **Pandas** for data analysis, data cleaning, feature engineering, exploratory data analysis (EDA), correlation analysis, pivot tables, and DataFrame merging.
-
-This project contains **10 practical tasks** that gradually introduce important data analysis concepts using both manually created datasets and the **Student Performance Dataset (`student-mat.csv`)**.
-
----
-
-# 📁 Project Structure
-
-```
-project/
-│
-├── student-mat.csv      # Main dataset
-├── main.py              # Python program
-├── README.md            # Project documentation
 ```
 
----
+Key concepts covered:
 
-# 🎯 Project Objectives
+- Variables
+- Strings
+- Numbers
+- Booleans
+- Formatted printing
 
-The project demonstrates how to:
+### [Day 2: Control Flow, Loops, and Logic](Track-1/DAY-2)
+
+Day 2 focused on making programs respond to conditions and repeated actions using loops, conditional statements, and functions.
+
+Projects included:
+
+| Script | Description | Key Concepts |
+| --- | --- | --- |
+| `Atmpinchecker.py` | ATM PIN login simulator with three attempts | `for` loops, `break`, `for-else` |
+| `Evenoddsorter.py` | Separates user-entered numbers into even and odd lists | Lists, `.append()`, modulo operator |
+| `gradecalculator.py` | Calculates percentage and assigns grades | Type casting, sequential logic, `if-elif-else` |
+| `Multiplicationtablegenerator.py` | Generates a multiplication table from 1 to 10 | `range()`, f-strings |
+| `Numberguess.py` | Number guessing game with random number generation | `random`, custom functions, loops |
+
+Run any script with:
+
+```bash
+python filename.py
+```
+
+Example:
+
+```bash
+python Numberguess.py
+```
+
+### [Day 3: Student Data Analysis with NumPy and Pandas](Track-1/DAY-3)
+
+Day 3 introduced practical data analysis using **NumPy** and **Pandas**. The project uses manually created sample data and the Student Performance Dataset (`student-mat.csv`) to demonstrate data cleaning, exploratory analysis, feature engineering, pivot tables, correlations, and DataFrame merging.
+
+Project objectives:
 
 - Work with NumPy arrays
 - Create and manipulate Pandas DataFrames
@@ -112,569 +101,128 @@ The project demonstrates how to:
 - Analyze correlations
 - Merge multiple DataFrames
 
----
-
-# 📦 Requirements
-
-Install the required libraries before running the project.
+Requirements:
 
 ```bash
 pip install numpy pandas
 ```
 
----
-
-# ▶️ Running the Project
-
-Place the dataset **student-mat.csv** in the same folder as the Python script.
-
-Run:
+Run the project:
 
 ```bash
-python main.py
+python mainday3.py
 ```
 
-If the dataset is missing, the program will automatically skip dataset-related tasks while still executing the NumPy and DataFrame examples.
+Dataset used:
 
----
-
-# 📂 Dataset
-
-The project uses the **Student Performance Dataset**.
-
-File:
-
-```
+```text
 student-mat.csv
 ```
 
-The dataset contains information about students including:
-
-- School
-- Gender
-- Age
-- Study time
-- Internet access
-- Family information
-- Grades (G1, G2, G3)
-
-Final grade (`G3`) is used throughout the project for analysis.
-
----
-
-# 📝 Task 1 — NumPy Marks Analyser
-
-### Objective
-
-Demonstrates basic NumPy operations.
-
-### Operations
-
-- Create a NumPy array
-- Calculate mean
-- Find maximum value
-- Find minimum value
-- Calculate standard deviation
-- Count students who passed
-
-### Example Output
-
-```
-Mean: 65.70
-Highest: 95
-Lowest: 33
-Standard Deviation: ...
-Students Passed: 7/10
-```
-
-### Concepts Used
-
-- numpy.array()
-- mean()
-- max()
-- min()
-- std()
-- Boolean indexing
-
----
-
-# 📝 Task 2 — DataFrame Builder
-
-### Objective
-
-Create a Pandas DataFrame manually.
-
-### Operations
-
-Creates student information including:
-
-- Name
-- Age
-- City
-- Marks
-
-Adds a new column:
-
-```
-Result
-```
-
-using
-
-```python
-np.where()
-```
-
-Students with marks ≥ 50 are marked as **Pass**, otherwise **Fail**.
-
-### Concepts Used
-
-- pd.DataFrame()
-- Column creation
-- np.where()
-
----
-
-# 📝 Task 3 — CSV Explorer
-
-### Objective
-
-Load and inspect the dataset.
-
-### Operations
-
-Displays:
-
-- Dataset shape
-- First three rows
-- Internet access distribution
-
-### Concepts Used
-
-- read_csv()
-- head()
-- shape
-- value_counts()
-
----
-
-# 📝 Task 4 — Missing Data Detective
-
-### Objective
-
-Handle missing values.
-
-### Operations
-
-Creates a sample DataFrame containing missing values.
-
-Missing numeric values are replaced with:
-
-```
-Column Mean
-```
-
-Missing text values are replaced with:
-
-```
-Unknown
-```
-
-### Concepts Used
-
-- fillna()
-- mean()
-- select_dtypes()
-
----
-
-# 📝 Task 5 — Group & Compare
-
-### Objective
-
-Perform grouped analysis.
-
-### Operations
-
-Calculates:
-
-Average Final Grade (G3)
-
-grouped by
-
-```
-Study Time
-```
-
-Also displays:
-
-Top 3 students with highest final grades.
-
-### Concepts Used
-
-- groupby()
-- mean()
-- nlargest()
-
----
-
-# 📝 Task 6 — Full EDA Report
-
-### Objective
-
-Generate a quick exploratory data analysis report.
-
-### Displays
-
-- Dataset shape
-- Missing values
-- Statistical summary
-
-### Concepts Used
-
-- describe()
-- isnull()
-- sum()
-
----
-
-# 📝 Task 7 — Feature Engineering (Grade Binning)
-
-### Objective
-
-Convert numerical grades into letter grades.
-
-Uses:
-
-```python
-pd.cut()
-```
-
-### Grade Mapping
-
-| Score | Letter Grade |
-|--------|--------------|
-| 0–9 | F (Fail) |
-| 10–11 | D (Pass) |
-| 12–13 | C (Satisfactory) |
-| 14–15 | B (Good) |
-| 16–20 | A (Excellent) |
-
-Also prints grade distribution.
-
-### Concepts Used
-
-- Feature Engineering
-- pd.cut()
-- value_counts()
-
----
-
-# 📝 Task 8 — Pivot Tables
-
-### Objective
-
-Summarize grades across multiple categories.
-
-Creates a pivot table showing:
-
-Average Final Grade
-
-based on
-
-- Gender
-- Internet Access
-
-### Concepts Used
-
-- pivot_table()
-- aggfunc='mean'
-
----
-
-# 📝 Task 9 — Correlation Analysis
-
-### Objective
-
-Identify which numerical features are most related to the final grade.
-
-Calculates correlation matrix and displays:
-
-- Highest positive correlations
-- Highest negative correlations
-
-### Concepts Used
-
-- corr()
-- sort_values()
-
----
-
-# 📝 Task 10 — DataFrame Merging
-
-### Objective
-
-Combine two DataFrames.
-
-Creates a second DataFrame containing school metadata:
-
-| School | Type | Funding |
-|---------|------|----------|
-| GP | Public | High |
-| MS | Private | Medium |
-
-Then merges it with the student dataset.
-
-### Concepts Used
-
-- merge()
-- Left Join
-
----
-
-# 📚 Python Concepts Covered
+The dataset includes information such as school, gender, age, study time, internet access, family details, and grades (`G1`, `G2`, `G3`). The final grade `G3` is used throughout the analysis.
+
+Tasks completed:
+
+| Task | Topic | Summary |
+| --- | --- | --- |
+| 1 | NumPy Marks Analyser | Calculates mean, max, min, standard deviation, and pass count |
+| 2 | DataFrame Builder | Builds a student DataFrame and adds a pass/fail result column |
+| 3 | CSV Explorer | Loads the dataset and inspects shape, rows, and internet access distribution |
+| 4 | Missing Data Detective | Fills numeric missing values with means and text missing values with `Unknown` |
+| 5 | Group & Compare | Groups final grades by study time and finds top students |
+| 6 | Full EDA Report | Displays shape, missing values, and statistical summaries |
+| 7 | Grade Binning | Converts numeric grades into letter grades using `pd.cut()` |
+| 8 | Pivot Tables | Compares average grades by gender and internet access |
+| 9 | Correlation Analysis | Finds positive and negative relationships with final grade |
+| 10 | DataFrame Merging | Merges student data with school metadata |
+
+Python concepts covered:
 
 - Variables
 - Arrays
 - DataFrames
-- CSV Reading
-- Missing Data Handling
-- Aggregation
-- Grouping
-- Feature Engineering
-- Pivot Tables
-- Correlation Analysis
-- DataFrame Merging
-
----
-
-# 📊 Libraries Used
-
-## NumPy
-
-Used for:
-
-- Numerical calculations
-- Mean
-- Standard deviation
-- Boolean indexing
-
-Official documentation:
-
-https://numpy.org/doc/
-
----
-
-## Pandas
-
-Used for:
-
-- DataFrames
-- CSV handling
-- Cleaning data
-- Grouping
+- CSV loading
+- Missing value handling
+- Grouping and aggregation
 - Pivot tables
-- Correlation
-- Merging
+- Correlation analysis
+- Feature engineering
+- DataFrame joins
 
-Official documentation:
+### [Day 4: Student Performance Analysis and Prediction](Track-1/DAY-4)
 
-https://pandas.pydata.org/docs/
+Day 4 built an end-to-end machine learning pipeline to analyze student performance factors and predict exam scores with a **Multiple Linear Regression** model.
 
----
+The project uses:
 
-# 🚀 Skills Demonstrated
+- Python
+- Pandas
+- Matplotlib
+- Scikit-learn
 
-✔ NumPy Basics
+Main objective:
 
-✔ Pandas Fundamentals
+1. Identify which student factors, such as study hours, attendance, and parental involvement, best explain exam scores.
+2. Predict a student's final exam score from those factors.
 
-✔ Data Cleaning
+Key features:
 
-✔ Exploratory Data Analysis
+- Automated quality checks for missing values, outliers, and duplicate rows
+- Correlation analysis for positive and negative relationships with exam scores
+- Exported `.png` visualizations for distributions and trends
+- Feature engineering through binned study-hour categories
+- Multiple train-test split experiments
+- Serialized trained model output as `saved_exam_score_model.pkl`
 
-✔ Feature Engineering
+Exploratory analysis included:
 
-✔ Data Aggregation
+- Hours studied distribution
+- Attendance distribution
+- Feature boxplots
+- Study hours vs. exam score scatter plot
+- Exam score trend by study time
+- School type impact
+- Parental involvement impact
 
-✔ Pivot Tables
+Modeling details:
 
-✔ Correlation Analysis
+- Target variable: `Exam_Score`
+- Features: numeric columns such as `Hours_Studied`, `Attendance`, `Previous_Scores`, `Tutoring_Sessions`, `Physical_Activity`, and `Sleep_Hours`
+- Model: Multiple Linear Regression
+- Evaluation: actual vs. predicted scores and residual diagnostics
+- Output: reusable `.pkl` model file
 
-✔ Data Merging
+### [Day 5: CloudWatch Server Resource Anomaly Predictor](Track-1/DAY-5)
 
-✔ Real Dataset Analysis
+Day 5 focused on detecting unusual behavior in server and infrastructure telemetry. The project reads timestamped time-series files, converts each series into rolling statistical windows, and trains a classifier to label each window as normal or anomalous.
 
----
+Why it matters:
 
-# 📌 Future Improvements
+- Cloud systems generate many operational metrics such as CPU usage, network traffic, request latency, and disk activity.
+- Manual inspection is slow and error-prone.
+- A machine learning workflow can help identify spikes, jumps, flatlines, trend shifts, and noisy workload changes.
 
-Possible extensions include:
+Pipeline flow:
 
-- Data visualization using Matplotlib
-- Data visualization using Seaborn
-- Machine Learning prediction models
-- Interactive dashboard using Streamlit
-- Exporting reports to Excel or PDF
+1. Load raw CSV files from `data/archive/`.
+2. Clean timestamps and non-numeric values.
+3. Split time series into rolling windows.
+4. Extract statistical features.
+5. Save the engineered dataset to `data/dataset.csv`.
+6. Train a `RandomForestClassifier`.
+7. Evaluate the model on a stratified train/test split.
+8. Save the model bundle to `model.pkl`.
+9. Generate plots in `plots/`.
 
----
-
-# 👨‍💻 Author
-
-Developed as a hands-on Python Data Analysis project using **NumPy** and **Pandas** to demonstrate essential data analysis techniques with real-world student performance data.
-
----
-# Day 4:🎓 Student Performance Analysis & Prediction
-
-This repository contains a complete end-to-end Machine Learning pipeline that analyzes student performance factors and predicts exam scores using a Multiple Linear Regression model. 
-
-Built with **Python**, **Pandas**, **Matplotlib**, and **Scikit-Learn**, this project dives deep into exploratory data analysis (EDA), visualizes key trends, and exports a trained predictive model.
-
----
-
-
-
-## 🚀 Project Overview
-
-The main objective of this project is to answer two critical questions:
-1.  **Which student factors (e.g., study hours, attendance, parental involvement) best explain exam scores?**
-2.  **How accurately can we predict a student's final exam score based on these metrics?**
-
-The script takes a dataset (`StudentPerformanceFactors.csv`), cleans it, generates multiple statistical visualizations, trains a predictive regression model, and finally saves the trained model (`saved_exam_score_model.pkl`) for future deployment.
-
----
-
-## ✨ Key Features
-
-* **Automated Quality Checks:** Identifies missing values, outliers (e.g., Attendance < 50, Study Hours > 35), and duplicate rows.
-* **Correlation Analysis:** Automatically extracts the top positive and negative relationships with exam scores.
-* **Rich Data Visualization:** Exports high-quality `.png` charts to easily digest data distributions and trends.
-* **Custom Feature Engineering:** Bins numeric data (like continuous study hours) into categorical bins to identify non-linear trends.
-* **Machine Learning:** Tests multiple train-test splits and utilizes Multiple Linear Regression.
-
----
-
-## 📊 Exploratory Data Analysis (EDA)
-
-Before training our model, we visualized the dataset to understand the underlying patterns. 
-
-### Data Distributions
-Understanding the spread of our data is crucial. Most students study around 15–25 hours and maintain solid attendance, though outliers exist.
-
-| Hours Studied Distribution | Attendance Distribution | Score & Study Spread (Boxplot) |
-| :---: | :---: | :---: |
-| ![Hours Studied](01_hours_studied_histogram.png) | ![Attendance](01_attendance_histogram.png) | ![Spread](01_feature_boxplot.png) |
-
-### Identifying Key Relationships
-We looked at how categorical and continuous variables impact final scores. Unsurprisingly, **Hours Studied** shows a strong positive correlation with exam success.
-
-**Hours Studied vs. Exam Score:**
-![Study Hours vs Score Scatter](01_hours_studied_vs_exam_score_scatter.png)
-
-**Average Score Trends:**
-We binned the study hours to see the average score jump per study bracket. The upward trajectory is distinct.
-![Study Time Trend](01_exam_score_trend_by_study_time.png)
-
-**Custom Binned Analysis (Compared to Mean):**
-![Custom Study Time Analysis](02_custom_styled_average_by_study_time.png)
-
-### Categorical Impacts
-Does school type or parental involvement change the average outcome?
-| School Type Impact | Parental Involvement Impact |
-| :---: | :---: |
-| ![School Type](01_average_exam_score_by_school_type.png) | ![Parental Involvement](01_parental_involvement_score.png) |
-
----
-
-## 🤖 Predictive Modeling
-
-We built a **Multiple Linear Regression** model using Scikit-Learn to predict the `Exam_Score`. 
-
-**Training Details:**
-* **Target Variable:** `Exam_Score`
-* **Features Used:** All numeric columns (e.g., `Hours_Studied`, `Attendance`, `Previous_Scores`, `Tutoring_Sessions`, `Physical_Activity`, `Sleep_Hours`).
-* **Train/Test Split:** Evaluated across 10%, 20%, and 30% holdout sets to find the optimal balance (lowest RMSE).
-* **Output:** The model is serialized as a `.pkl` file for immediate inference without retraining.
-
----
-
-## 📈 Model Evaluation
-
-To ensure our model isn't just memorizing data, we evaluate its predictions against the unseen test set.
-
-### 1. Actual vs. Predicted Scores
-The model tracks the red dashed line (perfect prediction) closely, indicating a strong capability to forecast real scores based on student behavior.
-![Actual vs Predicted Scores](06_actual_vs_predicted.png)
-
-### 2. Residual Diagnostics (Homoscedasticity)
-A good model should have random errors (residuals) scattered around zero. The plot below shows our model's errors are relatively balanced, meaning it doesn't consistently over-predict or under-predict across different score ranges.
-![Residuals vs Predicted](08_residuals_vs_predicted.png)
-
----
-
-## 💻 Setup & Installation
-
-To run this project locally, follow these steps:
-
-1. **Clone the repository:**
-   ```bash
-   git clone [https://github.com/yourusername/student-performance-analysis.git](https://github.com/yourusername/student-performance-analysis.git)
-   cd student-performance-analysis
-
- # Day 5:# CloudWatch Server Resource Anomaly Predictor
-
-This project detects unusual behavior in server and infrastructure telemetry. It reads timestamped time-series files, converts each series into rolling statistical windows, and trains a machine-learning classifier to decide whether each window looks normal or anomalous.
-
-The goal is not only to train a model, but to make server behavior easier to analyze: stable series should look different from spikes, jumps, flatlines, trend changes, and noisy workload shifts.
-
-## Why This Project Matters
-
-Cloud infrastructure produces a large amount of metric data: CPU usage, network traffic, request latency, disk activity, and other operational signals. Manually checking those signals is slow and error-prone.
-
-This project shows a practical anomaly-detection workflow:
-
-- Convert raw monitoring data into useful model features.
-- Train a supervised classifier on normal and anomalous examples.
-- Evaluate model quality with accuracy, precision, recall, F1 score, and a confusion matrix.
-- Generate plots that help explain the data and the model.
-- Save a reusable model bundle for later predictions.
-
-## Dataset
-
-The source data is stored in `data/archive/`. The files follow a NAB-style format where each CSV contains:
-
-- `timestamp` - time of the metric reading
-- `value` - observed metric value
-
-The training pipeline scans all archive CSV files and creates `data/dataset.csv`.
-
-Current verified dataset build:
+Verified dataset build:
 
 - Source CSV files: `58`
 - Generated training rows: `15,192`
 - Window size: `48` observations
 - Window step: `24` observations
-- Target labels:
-  - `0` = normal
-  - `1` = anomaly
+- Labels: `0 = normal`, `1 = anomaly`
 
-The label is inferred from the archive folder name. Files under `artificialNoAnomaly` are treated as normal, and the other archive groups are treated as anomalous.
-
-## How The Pipeline Works
-
-1. Load each raw CSV from `data/archive/`.
-2. Clean invalid timestamps and non-numeric values.
-3. Split each time series into rolling windows.
-4. Extract statistical features from each window.
-5. Save the engineered table to `data/dataset.csv`.
-6. Train a `RandomForestClassifier`.
-7. Evaluate the model on a stratified train/test split.
-8. Save the trained model bundle to `model.pkl`.
-9. Generate analysis plots in `plots/`.
-
-## Features Used For Analysis
-
-Each time-series window is transformed into these model features:
+Features used:
 
 - Window shape: `window_length`, `duration_minutes`, `sampling_interval_minutes`
 - Central tendency: `value_mean`, `value_median`
@@ -683,30 +231,15 @@ Each time-series window is transformed into these model features:
 - Change behavior: `value_abs_diff_mean`, `value_abs_diff_std`, `value_max_jump`
 - Signal strength: `value_energy`, `peak_to_mean_ratio`
 
-These features help the model identify common anomaly patterns such as sudden spikes, large jumps, flatline behavior, high variance, and abnormal trend movement.
+Model:
 
-## Model
-
-The project uses a `RandomForestClassifier` from scikit-learn.
-
-Random Forest is a good fit here because:
-
-- It performs well on tabular engineered features.
-- It can model non-linear relationships.
-- It is less sensitive to feature scaling than many other classifiers.
-- It provides feature-importance values for analysis.
-- It works well as a strong baseline before trying more complex time-series models.
-
-Training settings are defined in `model.py`:
-
+- Algorithm: `RandomForestClassifier`
 - `n_estimators=300`
 - `random_state=42`
 - `class_weight="balanced_subsample"`
 - `min_samples_leaf=2`
 
-## Verified Results
-
-The latest local training run used an 80/20 stratified split.
+Verified results from the latest local training run:
 
 ```text
 Accuracy: 0.9862
@@ -723,74 +256,19 @@ Classification report summary:
 | `0` | Normal | 0.94 | 0.80 | 0.86 | 167 |
 | `1` | Anomaly | 0.99 | 1.00 | 0.99 | 2,872 |
 
-The model is very strong at detecting anomalous windows, but the normal class has lower recall. That means some normal windows are still being flagged as anomalous. This is important for real monitoring systems because false alarms can reduce trust in the alerting workflow.
+Important interpretation:
 
-## Generated Outputs
+- High anomaly recall means the model catches most anomalous windows.
+- Lower normal recall means some normal windows are marked as anomalous.
+- In a production monitoring system, thresholds and labels should be tuned based on whether missed anomalies or false alerts are more costly.
 
-After training, the project creates or updates:
-
-- `data/dataset.csv` - engineered training dataset
-- `model.pkl` - saved model bundle
-- `plots/target_distribution.png` - class balance chart
-- `plots/correlation_heatmap.png` - feature correlation chart
-- `plots/feature_importance.png` - Random Forest feature importance chart
-
-The saved model bundle contains:
-
-- trained model
-- feature column order
-- training metrics
-- encoders, if categorical features are used
-- numeric fill values for missing data
-
-## Project Structure
-
-```text
-.
-├── data/
-│   ├── archive/          # Source time-series CSV files
-│   └── dataset.csv       # Generated feature dataset
-├── plots/                # Generated analysis charts
-├── model.py              # Data loading, feature extraction, EDA, training, saving
-├── train.py              # Training entry point
-├── predict.py            # Sample prediction script
-├── model.pkl             # Saved trained model bundle
-├── requirements.txt      # Python dependencies
-└── README.md             # Project documentation
-```
-
-## Setup
-
-Create and activate a virtual environment if you want an isolated Python setup.
-
-```bash
-python3 -m venv .venv
-source .venv/bin/activate
-pip install -r requirements.txt
-```
-
-If Matplotlib warns that its default config directory is not writable, you can use a local cache directory:
-
-```bash
-mkdir -p .matplotlib
-MPLCONFIGDIR=.matplotlib python3 train.py
-```
-
-## Train The Model
+Run training:
 
 ```bash
 python3 train.py
 ```
 
-This command rebuilds `data/dataset.csv`, trains the Random Forest model, prints evaluation metrics, writes plots, and saves `model.pkl`.
-
-You can also run:
-
-```bash
-python3 model.py --train-only
-```
-
-## Run Sample Predictions
+Run sample predictions:
 
 ```bash
 python3 predict.py
@@ -804,170 +282,217 @@ art_daily_jumpsup.csv -> anomaly (anomaly windows: 98.20%)
 ec2_cpu_utilization_24ae8d.csv -> anomaly (anomaly windows: 100.00%)
 ```
 
-## How To Analyze The Project
+Limitations:
 
-Use these files when explaining the project:
+- Labels are inferred from folder names, not exact anomaly timestamps.
+- The model classifies windows, not individual timestamp points.
+- The dataset is imbalanced.
+- Real production metrics can drift over time.
+- Random Forest is reliable and interpretable, but it does not directly model long-term sequence dependencies.
 
-- Start with `data/dataset.csv` to show how raw time-series data becomes model-ready features.
-- Use `plots/target_distribution.png` to discuss class imbalance.
-- Use `plots/correlation_heatmap.png` to identify related features.
-- Use `plots/feature_importance.png` to explain which features influence predictions most.
-- Use the confusion matrix to discuss false positives and false negatives.
+Recommended improvements:
 
-Important interpretation:
-
-- High anomaly recall means the model catches most anomalous windows.
-- Lower normal recall means some normal windows are marked anomalous.
-- In production, the prediction threshold or labeling strategy should be tuned based on whether missed anomalies or false alerts are more costly.
-
-## Limitations
-
-- Labels are inferred from folder names, not from exact anomaly timestamps.
-- The current model classifies windows, not individual timestamp points.
-- The dataset is imbalanced, with many more anomaly windows than normal windows.
-- Real production metrics can drift over time, so the model should be retrained with newer data.
-- Random Forest is interpretable and reliable, but it does not directly model long-term sequence dependencies.
-
-## Good Next Improvements
-
-- Add timestamp-level labels if exact anomaly ranges are available.
+- Add timestamp-level labels.
 - Tune the decision threshold to reduce false alarms.
-- Compare Random Forest with Gradient Boosting, Isolation Forest, and sequence models.
-- Add cross-validation for more stable evaluation.
-- Save a separate metrics report after each training run.
-- Build a simple dashboard that displays predictions beside the original time series.
+- Compare with Gradient Boosting, Isolation Forest, and sequence models.
+- Add cross-validation.
+- Save separate metrics reports after training.
+- Build a dashboard for time-series predictions.
 
-## Dependencies
+## Track 2 Overview
 
-The project uses:
+Track 2 continues the anomaly detection work through notebooks, visualization, model comparison, and reporting.
+
+### [Day 6: Machine Learning Experiments Notebook](Track-2/DAY-6)
+
+Day 6 contains a Jupyter Notebook with several machine learning demonstrations and experimental modeling sections.
+
+Notebook sections:
+
+| Section | Objective | Details |
+| --- | --- | --- |
+| CloudWatch Server Resource Anomaly Predictor | Load and inspect server resource data | Reads a `dataset.csv` file containing window statistics and binary anomaly labels |
+| Text Classification | Classify messages as spam or ham | Uses `TfidfVectorizer` and compares Logistic Regression, Decision Tree, SVM, and KNN |
+| Movie Genre Prediction | Predict movie genres and tune hyperparameters | Uses release year and ratings with `LabelEncoder` and `GridSearchCV` |
+
+Requirements:
 
 - `pandas`
-- `numpy`
 - `scikit-learn`
-- `matplotlib`
 
-Install them with:
+Important notes:
 
-```bash
-pip install -r requirements.txt
-```
+- The notebook includes dummy-data fallbacks when required CSV files are unavailable.
+- With tiny fallback datasets, warnings such as `UndefinedMetricWarning` or cross-validation warnings are expected because there are not enough samples for reliable splits.
 
+### [Day 7: CloudWatch Data Anomaly Visualization](Track-2/DAY-7)
 
-# Day 6: Machine Learning Experiments Notebook
+Day 7 developed an automated anomaly visualization script in a Jupyter Notebook / Google Colab environment. The script creates synthetic time-series data and highlights values above a threshold of `195`.
 
-## Description
-This Jupyter Notebook contains a series of machine learning demonstrations and experimental modeling techniques. The notebook is divided into three main sections: loading time-series data for anomaly detection, classifying text data (spam vs. ham) using various algorithms, and applying Grid Search for hyperparameter tuning on a movie dataset.
+Technical stack:
 
-## Requirements
-To run the code in this notebook, you will need the following Python libraries:
-* `pandas`
-* `scikit-learn`
+- Python 3
+- Google Colab / Jupyter Notebook
+- `matplotlib.pyplot`
+- `numpy`
+- `pandas`
+- `io`
+- `base64`
+- `IPython.display`
 
-## Notebook Sections
+Execution flow:
 
-### 1. CloudWatch Server Resource Anomaly Predictor
-* **Objective:** Load and inspect server resource data for anomaly prediction.
-* **Details:** The notebook attempts to load a `dataset.csv` file containing time-series metrics such as `window_length`, `duration_minutes`, `value_mean`, and binary `anomaly` labels. It outputs the foundational dataframe structure and dataset information.
+1. Generate or ingest time-series values around a baseline of 200.
+2. Initialize a Matplotlib figure.
+3. Use conditional rendering with `plt.fill_between()` to shade values above the threshold.
+4. Save the chart to an in-memory `BytesIO` buffer.
+5. Encode the image as base64.
+6. Display the generated image directly inside the notebook UI.
 
-### 2. Text Classification (Spam Detection)
-* **Objective:** Build and compare models to classify text messages as 'spam' or 'ham'.
-* **Details:** * **Preprocessing:** Handles missing values and encodes categorical labels.
-  * **Feature Extraction:** Converts text data into numerical feature vectors using `TfidfVectorizer`.
-  * **Model Training & Evaluation:** Trains multiple classifiers and outputs accuracy and classification reports for each:
-    * Logistic Regression
-    * Decision Tree Classifier
-    * Support Vector Machine (SVM)
-    * K-Nearest Neighbors (KNN)
-  * *Note:* If the intended text dataset is missing, the code automatically defaults to a built-in dummy dataset to allow execution to continue.
+Issues resolved:
 
-### 3. Movie Genre Prediction & Hyperparameter Tuning
-* **Objective:** Predict movie genres based on release year and user ratings, and demonstrate hyperparameter optimization.
-* **Details:**
-  * Uses a dataset featuring movie titles, genres, release dates, and vote averages.
-  * Encodes the target variable (genres) using `LabelEncoder`.
-  * Employs `GridSearchCV` on a Decision Tree Classifier to identify the best hyperparameter combination (`max_depth`, `min_samples_split`).
+| Issue | Root Cause | Resolution |
+| --- | --- | --- |
+| `FileNotFoundError` while loading `dataset.csv` | Expected file was not available in Colab | Switched to an available sample dataset for testing |
+| `KeyError: "['developer_id'] not found in axis"` | Code referenced a column missing from the DataFrame | Remapped the target variable to the available `anomaly` column |
 
-## Important Notes & Troubleshooting
-* **Dummy Data Fallback:** The notebook is designed with error handling that generates small, hardcoded dummy datasets if the required external CSV files (e.g., `dataset.csv`, `spam.csv`) are not found in the environment. This ensures the modeling logic can still be demonstrated.
-* **Evaluation Warnings:** When the notebook falls back to the extremely small dummy datasets, you may see `UndefinedMetricWarning` (for Precision/Recall) or `UserWarning` during Cross-Validation. This is expected behavior due to the lack of sufficient samples to properly split and stratify the data across all classes.
+Key learnings:
 
+- Conditional visualization can reduce cognitive load by highlighting threshold breaches automatically.
+- `BytesIO` and base64 encoding make the rendering approach serverless-ready.
+- Schema validation is necessary before running visualization and data-processing logic.
 
-# Day 7: Anomaly Detection Model Comparison
+### [Day 8: Anomaly Detection Pipeline Impact and Iteration Report](Track-2/DAY-8)
 
-## Description
-Day 7 continues the CloudWatch anomaly detection work by comparing multiple machine learning models on a time-series feature dataset. The notebook trains different classifiers, evaluates their predictions, saves comparison results, and generates visual evaluation outputs.
+Day 8 provides a formal report comparing the baseline anomaly detection pipeline with a newer iteration. The updated preprocessing and evaluation steps showed major improvements in reported predictive performance.
 
-## Files Included
+Performance comparison:
 
-- `DAY-7/Cloud_watch_day_3.ipynb` - Main Jupyter Notebook for model comparison.
-- `DAY-7/Screenshots/` - Output screenshots from the notebook execution.
+| Model | Baseline Accuracy | Current Accuracy | Delta |
+| --- | ---: | ---: | ---: |
+| Logistic Regression | 65.51% | 94.43% | +28.92% |
+| Decision Tree | 57.19% | 100.00% | +42.81% |
+| Random Forest | 64.94% | 100.00% | +35.06% |
+| Gradient Boosting | 65.80% | 100.00% | +34.20% |
 
-## Requirements
-To run this notebook, install the following Python libraries:
+Pipeline enhancements:
 
-```bash
-pip install pandas numpy scikit-learn matplotlib seaborn joblib
-```
+- One-hot encoding with `pd.get_dummies`
+- Feature space expansion from 21 to 77 dimensions
+- Weighted precision, recall, and F1-score reporting
+- Seaborn confusion matrix heatmaps
+- Model serialization with `joblib`
 
-## Notebook Workflow
+Validation steps:
 
-### 1. Load the Dataset
-The notebook loads a CloudWatch-style anomaly dataset using Pandas and inspects the first rows and available columns.
+- Training vs. test accuracy comparison to check generalization
+- 5-fold cross-validation across classifiers
+- Random Forest achieved `1.0000` mean accuracy with `0.0000` standard deviation across folds
 
-### 2. Prepare Features and Target
-The dataset is split into:
+Conclusion:
 
-- `X` - input features
-- `y` - anomaly labels
+The updated pipeline became more mature through stronger categorical encoding, broader metrics, cross-validation, and model persistence. The report also prepares the work for later production-monitoring integration.
 
-Categorical columns are converted into numeric format using `pd.get_dummies()`.
+### [Day 9: Anomaly Detection Model Comparison](Track-2/DAY-9)
 
-### 3. Train-Test Split
-The notebook uses `train_test_split()` to divide the dataset into training and testing data.
-
-### 4. Model Training
-The following models are trained and compared:
+Day 9 trained and compared four classifiers on a windowed time-series anomaly detection dataset:
 
 - Logistic Regression
-- Decision Tree Classifier
-- Random Forest Classifier
-- Gradient Boosting Classifier
+- Decision Tree
+- Random Forest
+- Gradient Boosting
 
-### 5. Model Evaluation
-Each model is evaluated using:
+Dataset:
 
-- Accuracy score
-- Precision
-- Recall
-- F1-score
-- Classification report
-- Confusion matrix
+- `15,192` rows
+- `21` engineered features plus `source_file` and `anomaly`
+- `77` features after one-hot encoding
+- Train/test split: 80/20
+- Training rows: `12,153`
+- Test rows: `3,039`
+- Test class balance: `169` anomalies vs. `2,870` normal rows
 
-### 6. Save Results
-The model comparison results are exported to:
+Results:
 
-```text
-model_comparison.csv
+| Model | Accuracy | Precision (weighted) | Recall (weighted) | F1 (weighted) | Anomaly-class Recall |
+| --- | ---: | ---: | ---: | ---: | ---: |
+| Logistic Regression | 0.9444 | 0.8919 | 0.9444 | 0.9174 | 0.00 |
+| Decision Tree | 1.0000 | 1.0000 | 1.0000 | 1.0000 | 1.00* |
+| Random Forest | 1.0000 | 1.0000 | 1.0000 | 1.0000 | 1.00* |
+| Gradient Boosting | 1.0000 | 1.0000 | 1.0000 | 1.0000 | 1.00* |
+
+`*` These perfect scores are likely inflated by data leakage.
+
+Key finding:
+
+The apparent "94% vs. 100%" result is misleading. Weighted metrics are dominated by the normal majority class. Logistic Regression detects zero anomalies, while the tree-based models likely benefit from leakage through the `source_file` column, because folder or file names may encode anomaly status.
+
+Known issues:
+
+| # | Issue | Impact |
+| --- | --- | --- |
+| 1 | `source_file` is one-hot encoded | Likely leaks labels directly to tree models |
+| 2 | No class-imbalance handling | Minority-class metrics are unreliable |
+| 3 | `best_model.pkl` is saved from an unfitted `LogisticRegression()` | Saved model is not usable |
+| 4 | Early comparison table uses stale hardcoded accuracy values | Confusing intermediate notebook output |
+| 5 | `model_comparison.py` covers only 2 of 4 models and uses a relative `dataset.csv` path | Script output is incomplete and less portable |
+| 6 | Cross-validation and comparison sections are duplicated | Notebook is harder to read |
+
+Artifacts produced:
+
+- `confusion_matrix_model1.png`
+- `confusion_matrix_model2.png`
+- `model_comparison.csv`
+- `model_comparison.py`
+- `best_model.pkl`
+- `report.pdf`
+
+Recommended next steps:
+
+1. Drop `source_file` or replace it with a leakage-safe derived feature.
+2. Use a group-aware split such as `GroupShuffleSplit` on `source_file`.
+3. Handle class imbalance with `class_weight`, resampling, or precision/recall-focused metrics such as PR-AUC.
+4. Save the actually fitted model to `best_model.pkl`.
+5. Regenerate `report.pdf` after fixing leakage and imbalance concerns.
+
+## Skills and Tools Practiced
+
+- Python fundamentals
+- Control flow and loops
+- Functions
+- NumPy
+- Pandas
+- Data cleaning
+- Exploratory data analysis
+- Feature engineering
+- Data visualization
+- Matplotlib
+- Scikit-learn
+- Regression modeling
+- Classification modeling
+- Random Forests
+- Cross-validation
+- Confusion matrices
+- Model serialization
+- Jupyter Notebook / Google Colab workflows
+- Anomaly detection
+- Time-series feature extraction
+- Model evaluation and reporting
+
+## How To Use This Repository
+
+Each day folder contains its own files and README documentation. Start from this main README for the overall view, then open the specific day folder for source code, notebooks, datasets, model artifacts, and day-level explanations.
+
+For Python scripts:
+
+```bash
+python filename.py
 ```
 
-The selected model is also saved using Joblib:
+For Python 3-specific commands:
 
-```text
-best_model.pkl
+```bash
+python3 filename.py
 ```
 
-## Skills Demonstrated
-
-- Loading and inspecting datasets
-- Feature-target splitting
-- One-hot encoding categorical data
-- Train-test splitting
-- Training multiple ML classifiers
-- Comparing model performance
-- Creating classification reports
-- Plotting confusion matrices
-- Saving model outputs
-
-## Notes
-
-This notebook focuses on comparing model behavior for anomaly detection and understanding which classifier performs better on the prepared CloudWatch feature dataset.
+For notebooks, open the `.ipynb` files in Jupyter Notebook, JupyterLab, VS Code, or Google Colab.
