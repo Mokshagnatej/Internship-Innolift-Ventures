@@ -144,6 +144,3 @@ Then open `http://127.0.0.1:5000` in your browser.
 
 ---
 
-## 📄 License
-
-This project is intended for educational/academic use. Add a license of your choice here (e.g., MIT).
