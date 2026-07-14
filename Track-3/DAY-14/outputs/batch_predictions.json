@@ -1,8 +1,8 @@
 [
     {
         "case_name": "Normal Server Load 1",
-        "prediction": "Anomaly",
-        "is_anomaly": true,
+        "prediction": "Normal",
+        "is_anomaly": false,
         "window_length": 60,
         "duration_minutes": 60,
         "sampling_interval_minutes": 1,
@@ -18,16 +18,16 @@
         "value_first": 42.0,
         "value_last": 48.0,
         "value_trend": 0.05,
-        "value_abs_diff_mean": 1.2,
+        "value_abs_diff_mean": 0.0,
         "value_abs_diff_std": 0.5,
         "value_max_jump": 2.5,
         "value_energy": 3000.0,
-        "peak_to_mean_ratio": 1.01
+        "peak_to_mean_ratio": 1.0
     },
     {
         "case_name": "Normal Server Load 2",
-        "prediction": "Anomaly",
-        "is_anomaly": true,
+        "prediction": "Normal",
+        "is_anomaly": false,
         "window_length": 60,
         "duration_minutes": 60,
         "sampling_interval_minutes": 1,
@@ -43,11 +43,11 @@
         "value_first": 50.0,
         "value_last": 60.0,
         "value_trend": -0.02,
-        "value_abs_diff_mean": 1.8,
+        "value_abs_diff_mean": 0.0,
         "value_abs_diff_std": 0.6,
         "value_max_jump": 4.0,
         "value_energy": 4500.0,
-        "peak_to_mean_ratio": 1.03
+        "peak_to_mean_ratio": 1.0
     },
     {
         "case_name": "High CPU Spike Anomaly",

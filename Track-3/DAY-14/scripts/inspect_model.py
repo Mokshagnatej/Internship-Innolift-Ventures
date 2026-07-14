@@ -1,7 +1,9 @@
+import os
 import pickle
 
 try:
-    with open('../../model.pkl', 'rb') as f:
+    model_path = os.path.join(os.path.dirname(__file__), '..', 'machine_learning', 'artifacts', 'model.pkl')
+    with open(model_path, 'rb') as f:
         model = pickle.load(f)
     print(type(model))
     if hasattr(model, 'feature_names_in_'):

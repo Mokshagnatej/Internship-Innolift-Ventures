@@ -3,186 +3,16 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CloudWatch - Server Resource Anomaly Predictor</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
-    <style>
-        :root {
-            --bg-color: #0f172a;
-            --panel-bg: rgba(30, 41, 59, 0.7);
-            --primary: #3b82f6;
-            --primary-hover: #2563eb;
-            --text-light: #f8fafc;
-            --text-muted: #94a3b8;
-            --border-color: rgba(255, 255, 255, 0.1);
-            --danger: #ef4444;
-            --success: #10b981;
-        }
-
-        body {
-            font-family: 'Inter', sans-serif;
-            background-color: var(--bg-color);
-            background-image: 
-                radial-gradient(at 0% 0%, rgba(59, 130, 246, 0.15) 0px, transparent 50%),
-                radial-gradient(at 100% 100%, rgba(139, 92, 246, 0.15) 0px, transparent 50%);
-            color: var(--text-light);
-            margin: 0;
-            padding: 0;
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-        }
-
-        header {
-            width: 100%;
-            padding: 2rem 0;
-            text-align: center;
-            border-bottom: 1px solid var(--border-color);
-            background: rgba(15, 23, 42, 0.8);
-            backdrop-filter: blur(12px);
-            position: sticky;
-            top: 0;
-            z-index: 100;
-        }
-
-        h1 {
-            margin: 0;
-            font-size: 2.2rem;
-            font-weight: 700;
-            background: linear-gradient(to right, #60a5fa, #a78bfa);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-
-        p.subtitle {
-            margin: 0.5rem 0 0;
-            color: var(--text-muted);
-            font-size: 1.1rem;
-        }
-
-        main {
-            width: 90%;
-            max-width: 1000px;
-            margin: 3rem auto;
-            display: grid;
-            grid-template-columns: 1fr;
-            gap: 2rem;
-        }
-
-        .panel {
-            background: var(--panel-bg);
-            border-radius: 16px;
-            padding: 2rem;
-            border: 1px solid var(--border-color);
-            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
-            backdrop-filter: blur(10px);
-            -webkit-backdrop-filter: blur(10px);
-        }
-
-        .form-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-            gap: 1.5rem;
-        }
-
-        .form-group {
-            display: flex;
-            flex-direction: column;
-            gap: 0.5rem;
-        }
-
-        label {
-            font-size: 0.85rem;
-            font-weight: 600;
-            color: var(--text-muted);
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-        }
-
-        input {
-            background: rgba(15, 23, 42, 0.6);
-            border: 1px solid var(--border-color);
-            border-radius: 8px;
-            padding: 0.75rem 1rem;
-            color: var(--text-light);
-            font-family: 'Inter', sans-serif;
-            font-size: 1rem;
-            transition: all 0.3s ease;
-        }
-
-        input:focus {
-            outline: none;
-            border-color: var(--primary);
-            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.25);
-        }
-
-        .btn-submit {
-            background: var(--primary);
-            color: white;
-            border: none;
-            border-radius: 8px;
-            padding: 1rem 2rem;
-            font-size: 1.1rem;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            margin-top: 2rem;
-            width: 100%;
-            font-family: 'Inter', sans-serif;
-        }
-
-        .btn-submit:hover {
-            background: var(--primary-hover);
-            transform: translateY(-2px);
-            box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3);
-        }
-
-        .result-panel {
-            text-align: center;
-            animation: fadeIn 0.5s ease;
-        }
-
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(10px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        .result-title {
-            font-size: 1.5rem;
-            font-weight: 600;
-            margin-bottom: 1rem;
-        }
-
-        .result-box {
-            display: inline-block;
-            padding: 1rem 2rem;
-            border-radius: 12px;
-            font-size: 1.25rem;
-            font-weight: 700;
-            margin-top: 0.5rem;
-        }
-
-        .result-box.danger {
-            background: rgba(239, 68, 68, 0.2);
-            border: 1px solid var(--danger);
-            color: #fca5a5;
-            box-shadow: 0 0 20px rgba(239, 68, 68, 0.2);
-        }
-
-        .result-box.success {
-            background: rgba(16, 185, 129, 0.2);
-            border: 1px solid var(--success);
-            color: #6ee7b7;
-            box-shadow: 0 0 20px rgba(16, 185, 129, 0.2);
-        }
-
-        .result-box.warning {
-            background: rgba(245, 158, 11, 0.2);
-            border: 1px solid #f59e0b;
-            color: #fcd34d;
-        }
-
-    </style>
+    <meta name="description" content="CloudWatch Server Resource Anomaly Predictor - Machine Learning Dashboard">
+    <title>CloudWatch | Server Anomaly Predictor</title>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- Premium Stylesheet -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
 </head>
 <body>
 
@@ -193,109 +23,48 @@
 
     <main>
         {% if prediction %}
-        <div class="panel result-panel">
-            <div class="result-title">Prediction Result</div>
+        <section class="panel result-panel" aria-live="polite">
+            <h2 class="result-title">Prediction Result</h2>
             <div class="result-box {{ status_class }}">
-                {{ prediction }}
+                {{ prediction | replace('✅', '') | replace('🚨', '') }}
             </div>
-        </div>
+        </section>
         {% endif %}
 
-        <div class="panel">
-            <form action="/predict" method="POST">
+        <section class="panel">
+            <form action="/predict" method="POST" id="predictionForm">
+                
                 {% for group_name, features in feature_groups.items() %}
-                <h3 style="margin-top: 2rem; margin-bottom: 1rem; color: var(--primary);">{{ group_name }}</h3>
-                <div class="form-grid">
-                    {% for feature in features %}
-                    <div class="form-group">
-                        <label for="{{ feature }}">{{ feature | replace('_', ' ') | title }}</label>
-                        <input type="number" step="any" id="{{ feature }}" name="{{ feature }}" 
-                               value="{{ submitted_data.get(feature, '0') }}" required>
+                <div class="feature-group">
+                    <h3>{{ group_name }}</h3>
+                    <div class="form-grid">
+                        {% for feature in features %}
+                        <div class="form-group">
+                            <input type="number" step="any" id="{{ feature }}" name="{{ feature }}" 
+                                   value="{{ submitted_data.get(feature, '0') }}" required placeholder="0">
+                            <label for="{{ feature }}">{{ feature | replace('_', ' ') | title }}</label>
+                        </div>
+                        {% endfor %}
                     </div>
-                    {% endfor %}
                 </div>
                 {% endfor %}
-                <div style="display: flex; gap: 1rem; margin-top: 2rem;">
-                    <button type="button" class="btn-submit" id="fillSampleBtn" style="margin-top: 0; flex: 1; background: rgba(255, 255, 255, 0.1); border: 1px solid var(--border-color);">Fill Sample Data</button>
-                    <button type="submit" class="btn-submit" style="margin-top: 0; flex: 2;">Generate Prediction</button>
+                
+                <div class="btn-container">
+                    <button type="button" class="btn btn-secondary" id="fillSampleBtn">
+                        <span class="btn-text">Fill Sample Data</span>
+                    </button>
+                    <button type="submit" class="btn btn-primary" id="submitBtn">
+                        <div class="spinner"></div>
+                        <span class="btn-text">Generate Prediction</span>
+                    </button>
                 </div>
+
             </form>
-        </div>
+        </section>
     </main>
 
-    <script>
-        document.getElementById('fillSampleBtn').addEventListener('click', function() {
-            const r = (min, max) => (Math.random() * (max - min) + min).toFixed(2);
-            const isAnomaly = Math.random() > 0.5; // Randomly decide if it's an anomaly or normal
-            
-            let sampleData;
-            if (isAnomaly) {
-                // Generate anomaly-like values
-                const valMin = r(20, 50);
-                const valMax = r(98, 100);
-                sampleData = {
-                    'window_length': 60,
-                    'duration_minutes': 60,
-                    'sampling_interval_minutes': 1,
-                    'value_mean': r(85, 98),
-                    'value_std': r(10, 25),
-                    'value_min': valMin,
-                    'value_max': valMax,
-                    'value_median': r(90, 97),
-                    'value_q25': r(80, 90),
-                    'value_q75': r(96, 99),
-                    'value_range': (valMax - valMin).toFixed(2),
-                    'value_iqr': r(5, 15),
-                    'value_first': r(40, 80),
-                    'value_last': r(95, 100),
-                    'value_trend': r(0.5, 1.5),
-                    'value_abs_diff_mean': r(5, 15),
-                    'value_abs_diff_std': r(2, 8),
-                    'value_max_jump': r(20, 50),
-                    'value_energy': r(8000, 9500),
-                    'peak_to_mean_ratio': r(1.05, 1.3)
-                };
-            } else {
-                // Generate normal-like values
-                const valMin = r(30, 45);
-                const valMax = r(55, 70);
-                sampleData = {
-                    'window_length': 60,
-                    'duration_minutes': 60,
-                    'sampling_interval_minutes': 1,
-                    'value_mean': r(40, 60),
-                    'value_std': r(1, 5),
-                    'value_min': valMin,
-                    'value_max': valMax,
-                    'value_median': r(45, 55),
-                    'value_q25': r(42, 48),
-                    'value_q75': r(52, 58),
-                    'value_range': (valMax - valMin).toFixed(2),
-                    'value_iqr': r(2, 6),
-                    'value_first': r(45, 55),
-                    'value_last': r(45, 55),
-                    'value_trend': r(-0.1, 0.1),
-                    'value_abs_diff_mean': r(0.5, 2.5),
-                    'value_abs_diff_std': r(0.1, 1.0),
-                    'value_max_jump': r(1, 5),
-                    'value_energy': r(3000, 5000),
-                    'peak_to_mean_ratio': r(1.0, 1.05)
-                };
-            }
-            
-            for (const [key, value] of Object.entries(sampleData)) {
-                const input = document.getElementById(key);
-                if (input) {
-                    input.value = value;
-                    input.style.transition = 'background-color 0.3s';
-                    // Red flash for anomaly, green flash for normal profile
-                    input.style.backgroundColor = isAnomaly ? 'rgba(239, 68, 68, 0.2)' : 'rgba(16, 185, 129, 0.2)'; 
-                    setTimeout(() => {
-                        input.style.backgroundColor = 'rgba(15, 23, 42, 0.6)';
-                    }, 400);
-                }
-            }
-        });
-    </script>
+    <!-- App Logic -->
+    <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+
 </body>
 </html>

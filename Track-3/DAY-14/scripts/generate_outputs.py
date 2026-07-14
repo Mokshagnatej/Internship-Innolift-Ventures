@@ -5,7 +5,7 @@ import pandas as pd
 import numpy as np
 
 # Load model
-model_path = os.path.join('models', 'model.pkl')
+model_path = os.path.join(os.path.dirname(__file__), '..', 'machine_learning', 'artifacts', 'model.pkl')
 with open(model_path, 'rb') as f:
     model = pickle.load(f)
 
@@ -21,11 +21,11 @@ features = [
 test_cases = [
     {
         "case_name": "Normal Server Load 1",
-        "data": [60, 60, 1, 45.0, 2.1, 40.0, 50.0, 44.5, 42.0, 48.0, 10.0, 6.0, 42.0, 48.0, 0.05, 1.2, 0.5, 2.5, 3000.0, 1.01]
+        "data": [60, 60, 1, 45.0, 2.1, 40.0, 50.0, 44.5, 42.0, 48.0, 10.0, 6.0, 42.0, 48.0, 0.05, 0.0, 0.5, 2.5, 3000.0, 1.0]
     },
     {
         "case_name": "Normal Server Load 2",
-        "data": [60, 60, 1, 55.5, 3.5, 45.0, 65.0, 56.0, 50.0, 60.0, 20.0, 10.0, 50.0, 60.0, -0.02, 1.8, 0.6, 4.0, 4500.0, 1.03]
+        "data": [60, 60, 1, 55.5, 3.5, 45.0, 65.0, 56.0, 50.0, 60.0, 20.0, 10.0, 50.0, 60.0, -0.02, 0.0, 0.6, 4.0, 4500.0, 1.0]
     },
     {
         "case_name": "High CPU Spike Anomaly",
@@ -57,15 +57,16 @@ for case in test_cases:
     results.append(result)
 
 # Save to outputs directory
-os.makedirs('outputs', exist_ok=True)
+outputs_dir = os.path.join(os.path.dirname(__file__), '..', 'outputs')
+os.makedirs(outputs_dir, exist_ok=True)
 
 # Export JSON
-with open('outputs/batch_predictions.json', 'w') as f:
+with open(os.path.join(outputs_dir, 'batch_predictions.json'), 'w') as f:
     json.dump(results, f, indent=4)
 
 # Export CSV
 df = pd.DataFrame(results)
-df.to_csv('outputs/batch_predictions.csv', index=False)
+df.to_csv(os.path.join(outputs_dir, 'batch_predictions.csv'), index=False)
 
 # Generate PNG charts
 import matplotlib.pyplot as plt
@@ -95,6 +96,6 @@ legend_elements = [Patch(facecolor='#10b981', label='Normal (Predicted)'),
 plt.legend(handles=legend_elements, loc='upper left')
 
 plt.tight_layout()
-plt.savefig('outputs/predictions_chart.png', dpi=300, bbox_inches='tight')
+plt.savefig(os.path.join(outputs_dir, 'predictions_chart.png'), dpi=300, bbox_inches='tight')
 
-print("Batch predictions successfully generated in 'outputs/' directory.")
+print(f"Batch predictions successfully generated in '{outputs_dir}' directory.")

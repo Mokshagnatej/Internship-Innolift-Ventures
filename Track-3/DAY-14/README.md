@@ -4,11 +4,11 @@
 On Day 14, we successfully transformed our isolated machine learning model into a fully functional, professional-grade web application. We achieved a structured **end-to-end integration** pipeline bridging the gap between Data Science and Web Development. 
 
 Specifically, we:
-1. **Implemented Application Factory:** Transitioned from a monolithic script to a modular Flask architecture, cleanly decoupling the web routes (`app/routes.py`) from machine learning code (`model_src/`).
+1. **Implemented Application Factory:** Transitioned from a monolithic script to a modular Flask architecture, cleanly decoupling the web routes (`app/routes.py`) from machine learning code (`machine_learning/src/`).
 2. **Built the Backend:** Developed a robust Flask server with a `/predict` endpoint to process live HTTP POST requests, lazily loading artifacts for memory efficiency.
 3. **Designed a Premium Frontend:** Created a stunning, responsive, glassmorphism-styled UI (`app/templates/index.html`) featuring organized metric groupings and micro-animations.
 4. **Interactive Prototyping:** Added a **"Fill Sample Data"** button that dynamically generates randomized normal and anomalous profiles for rapid testing.
-5. **Batch Processing:** Implemented a robust `generate_outputs.py` pipeline that automatically evaluates the model on simulated data and exports detailed JSON/CSV reports, along with visual PNG charts using `matplotlib` and `seaborn`.
+5. **Batch Processing:** Implemented a robust `scripts/generate_outputs.py` pipeline that automatically evaluates the model on simulated data and exports detailed JSON/CSV reports, along with visual PNG charts using `matplotlib` and `seaborn`.
 
 ---
 
@@ -34,7 +34,7 @@ Specifically, we:
 
 To test the model in bulk without using the web interface, you can generate batch predictions:
 ```bash
-python3 generate_outputs.py
+python3 scripts/generate_outputs.py
 ```
 This script evaluates several simulated server states and populates the `outputs/` folder with:
 - `batch_predictions.csv`: Spreadsheet of metrics and predictions.
@@ -71,5 +71,5 @@ The development lifecycle of this model involved several phases:
 1. **Data Ingestion:** We utilized a dataset composed of AWS CloudWatch metrics (e.g., EC2 CPU utilization, network traffic, RDS metrics).
 2. **Feature Engineering:** Because raw time-series data is difficult for traditional classifiers to ingest, the data was transformed using sliding windows. 20 distinct statistical features (mean, standard deviation, interquartile ranges, etc.) were extracted for each window.
 3. **Model Selection & Training:** We evaluated various algorithms. **Random Forest** was selected for its high accuracy and robustness against overfitting.
-4. **Serialization & Structuring:** The trained Random Forest model was serialized into a binary `.pkl` format and placed inside the `models/` directory for our Flask Application Factory to consume.
+4. **Serialization & Structuring:** The trained Random Forest model was serialized into a binary `.pkl` format and placed inside the `machine_learning/artifacts/` directory for our Flask Application Factory to consume.
 5. **Deployment:** The `.pkl` file was lazy-loaded into a Blueprint routing system, wrapped in a premium UI, creating the final production-ready product.
