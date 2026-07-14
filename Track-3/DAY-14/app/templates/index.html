@@ -41,7 +41,7 @@
                         {% for feature in features %}
                         <div class="form-group">
                             <input type="number" step="any" id="{{ feature }}" name="{{ feature }}" 
-                                   value="{{ submitted_data.get(feature, '0') }}" required placeholder="0">
+                                   value="{{ submitted_data.get(feature, '') }}" required placeholder="0">
                             <label for="{{ feature }}">{{ feature | replace('_', ' ') | title }}</label>
                         </div>
                         {% endfor %}
@@ -50,6 +50,9 @@
                 {% endfor %}
                 
                 <div class="btn-container">
+                    <a href="/" class="btn btn-secondary" id="resetBtn" style="text-decoration: none;">
+                        <span class="btn-text">Reset</span>
+                    </a>
                     <button type="button" class="btn btn-secondary" id="fillSampleBtn">
                         <span class="btn-text">Fill Sample Data</span>
                     </button>
