@@ -4,7 +4,7 @@
   "version": "0.0.1",
   "type": "module",
   "scripts": {
-    "build": "vite build",
+    "build": "vite build && rm -rf ../backend/app/static/assets/* && cp -r dist/assets/* ../backend/app/static/assets/",
     "dev": "vite"
   },
   "dependencies": {

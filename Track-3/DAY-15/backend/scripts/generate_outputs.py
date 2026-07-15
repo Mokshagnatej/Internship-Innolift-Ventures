@@ -5,7 +5,7 @@ import pandas as pd
 import numpy as np
 
 # Load model
-model_path = os.path.join(os.path.dirname(__file__), '..', 'machine_learning', 'artifacts', 'model.pkl')
+model_path = os.path.join(os.path.dirname(__file__), '..', 'ml', 'artifacts', 'model.pkl')
 with open(model_path, 'rb') as f:
     model = pickle.load(f)
 
