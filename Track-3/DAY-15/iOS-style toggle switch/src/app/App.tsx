@@ -553,7 +553,7 @@ export default function App() {
   }, [currentVals, mlEnabled, metricPred]);
 
   // Compact mode spacing helpers
-  const mainPad = compactMode ? "px-4 md:px-6 py-4 space-y-4" : "px-4 md:px-6 py-8 space-y-8";
+  const mainPad = compactMode ? "px-0 py-4 space-y-4" : "px-0 py-8 space-y-8";
   const gridGap = compactMode ? "gap-2.5" : "gap-4";
 
   return (
@@ -704,7 +704,7 @@ export default function App() {
         </div>
       </header>
 
-      <main className={`max-w-7xl mx-auto ${mainPad}`}>
+      <main className={`w-full ${mainPad}`}>
         {/* Page title */}
         <div className="flex items-start justify-between flex-wrap gap-4">
           <div>
