@@ -1,7 +1,0 @@
-/**
- * Font imports — the ONLY two font faces used in this project.
- * Inter      -> font-sans -> all UI text (headings, labels, body)
- * JetBrains Mono -> font-mono -> all data values, metric labels, timestamps
- * To change fonts, update this import and the --font-sans / --font-mono tokens in theme.css.
- */
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500;600&display=swap');
