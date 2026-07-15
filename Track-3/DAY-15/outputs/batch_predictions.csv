@@ -1,0 +1,5 @@
+case_name,prediction,is_anomaly,window_length,duration_minutes,sampling_interval_minutes,value_mean,value_std,value_min,value_max,value_median,value_q25,value_q75,value_range,value_iqr,value_first,value_last,value_trend,value_abs_diff_mean,value_abs_diff_std,value_max_jump,value_energy,peak_to_mean_ratio
+Normal Server Load 1,Normal,False,60,60,1,45.0,2.1,40.0,50.0,44.5,42.0,48.0,10.0,6.0,42.0,48.0,0.05,0.0,0.5,2.5,3000.0,1.0
+Normal Server Load 2,Normal,False,60,60,1,55.5,3.5,45.0,65.0,56.0,50.0,60.0,20.0,10.0,50.0,60.0,-0.02,0.0,0.6,4.0,4500.0,1.0
+High CPU Spike Anomaly,Anomaly,True,60,60,1,95.0,15.0,50.0,99.9,98.0,90.0,99.0,49.9,9.0,55.0,99.5,1.2,8.5,4.0,35.0,9500.0,1.25
+Erratic Memory Usage Anomaly,Anomaly,True,60,60,1,88.0,22.5,20.0,98.5,92.0,75.0,96.0,78.5,21.0,30.0,98.0,-1.5,12.0,6.5,45.0,8900.0,1.45

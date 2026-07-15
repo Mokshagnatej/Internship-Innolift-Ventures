@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+
+{% block title %}Edit expense · ExpenseFlow{% endblock %}
+
+{% block content %}
+  <section class="page-heading form-heading">
+    <div>
+      <a class="back-link" href="{{ url_for('expenses') }}"><span aria-hidden="true">←</span> Back to expenses</a>
+      <p class="eyebrow">Update entry</p>
+      <h1>Refine this <span>expense.</span></h1>
+      <p class="page-subtitle">Keep your records accurate as your plans change.</p>
+    </div>
+  </section>
+
+  <section class="form-card">
+    <div class="form-card-heading">
+      <span class="step-badge">{{ '%02d'|format(expense.id) }}</span>
+      <div><h2>Edit expense details</h2><p>Update the fields below, then save your changes.</p></div>
+    </div>
+    {% set record = expense %}
+    {% set form_action = url_for('edit_expense', expense_id=expense.id) %}
+    {% set cancel_url = url_for('expenses') %}
+    {% set submit_text = 'Save changes' %}
+    {% set submit_icon = '✓' %}
+    {% include "_expense_form.html" %}
+  </section>
+{% endblock %}

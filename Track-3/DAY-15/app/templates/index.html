@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="CloudWatch Server Resource Anomaly Predictor - Machine Learning Dashboard">
+    <title>CloudWatch | Server Anomaly Predictor</title>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- Premium Stylesheet -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+
+    <header>
+        <h1>CloudWatch Predictor</h1>
+        <p class="subtitle">Server Resource Anomaly Detection System</p>
+    </header>
+
+    <main>
+        {% if prediction %}
+        <section class="panel result-panel" aria-live="polite">
+            <h2 class="result-title">Prediction Result</h2>
+            <div class="result-box {{ status_class }}">
+                {{ prediction | replace('✅', '') | replace('🚨', '') }}
+            </div>
+        </section>
+        {% endif %}
+
+        <section class="panel">
+            <form action="/predict" method="POST" id="predictionForm">
+                
+                {% for group_name, features in feature_groups.items() %}
+                <div class="feature-group">
+                    <h3>{{ group_name }}</h3>
+                    <div class="form-grid">
+                        {% for feature in features %}
+                        <div class="form-group">
+                            <input type="number" step="any" id="{{ feature }}" name="{{ feature }}" 
+                                   value="{{ submitted_data.get(feature, '') }}" required placeholder="0">
+                            <label for="{{ feature }}">{{ feature | replace('_', ' ') | title }}</label>
+                        </div>
+                        {% endfor %}
+                    </div>
+                </div>
+                {% endfor %}
+                <div class="toggle-container">
+                    <span class="toggle-label normal-label">Simulate Normal</span>
+                    <label class="ios-toggle">
+                        <input type="checkbox" id="anomalyToggle">
+                        <span class="slider"></span>
+                    </label>
+                    <span class="toggle-label anomaly-label">Simulate Anomaly</span>
+                </div>
+                
+                <div class="btn-container">
+                    <a href="/" class="btn btn-secondary" id="resetBtn" style="text-decoration: none;">
+                        <span class="btn-text">Reset</span>
+                    </a>
+                    <button type="button" class="btn btn-secondary" id="fillSampleBtn">
+                        <span class="btn-text">Fill Sample Data</span>
+                    </button>
+                    <button type="submit" class="btn btn-primary" id="submitBtn">
+                        <div class="spinner"></div>
+                        <span class="btn-text">Generate Prediction</span>
+                    </button>
+                </div>
+
+            </form>
+        </section>
+    </main>
+
+    <!-- App Logic -->
+    <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+
+</body>
+</html>
