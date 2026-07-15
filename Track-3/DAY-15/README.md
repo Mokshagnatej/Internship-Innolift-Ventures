@@ -2,17 +2,54 @@
 
 A fully integrated full-stack application featuring a dark ops-center dashboard with live metric streaming, iOS-style toggle switches, and a reactive ML Predictor Engine powered by a Flask backend.
 
-## Project Structure
+---
+
+## 🎯 What We Achieved Today
+
+Today, we completely overhauled our application by transitioning from a basic server-side rendered UI to a modern, component-driven frontend exported directly from Figma. 
+
+**Key Changes:**
+- **Replaced Jinja2 Templates:** We permanently deleted the old HTML/CSS/JS frontend to eliminate technical debt and clutter.
+- **Vite & React Integration:** We integrated a full React single-page application (SPA) natively compiled via Vite directly into our Flask setup.
+- **Monorepo Restructuring:** We organized the workspace into a clean, professional `frontend/` (React) and backend (Flask) monorepo architecture.
+- **Edge-to-Edge Layout:** We removed constraints (`max-w-7xl` and horizontal padding) to make the dashboard perfectly flush with the edges of the browser for a premium, immersive feel.
+
+**Benefits of these Changes:**
+- **Decoupled Architecture:** The UI and backend are completely separate. You can iterate on the Figma design and drop in the new code without ever touching the Python backend logic.
+- **Enhanced User Experience:** We unlocked high-performance micro-animations (via Framer Motion), instant state updates without page reloads, and complex UI elements like iOS spring toggles and Web Audio API snaps.
+- **Maintainability:** The codebase is now structured professionally, making it extremely easy to manage both sides of the stack.
+
+---
+
+## 📂 Project Structure
 
 This project has been restructured into a clean Frontend/Backend monolith:
 
-- `frontend/` — The complete Vite/React application designed in Figma.
-- `app/` — The Flask backend application that serves the frontend and handles routing.
-- `machine_learning/` — The core Random Forest ML models for anomaly prediction.
-- `data/` — Local database for ML processing.
-- `run.py` — The entry point for the Flask server.
+```text
+DAY-15/
+│
+├── frontend/                   # 🎨 The complete Vite/React application designed in Figma
+│   ├── src/                    # React components, styles, and logic
+│   ├── package.json            # Node dependencies
+│   └── vite.config.ts          # Build configuration
+│
+├── app/                        # ⚙️ The Flask backend serving the frontend
+│   ├── static/assets/          # Compiled CSS & JS from the React build
+│   ├── templates/index.html    # The entry point linking to the React build
+│   ├── __init__.py             # Flask App Factory
+│   └── routes.py               # API endpoints (/predict)
+│
+├── machine_learning/           # 🧠 Core Random Forest ML models
+├── data/                       # 💾 Local database for ML processing
+├── outputs/                    # 📊 Generated batch predictions & charts
+├── scripts/                    # 🛠️ Python automation utilities
+├── config.py                   # 🔧 App Configuration
+└── run.py                      # 🚀 The entry point for the Flask server
+```
 
-## How to Run the Application
+---
+
+## 🚀 How to Run the Application
 
 1. **Start the Backend Server**
    Ensure you are in the `DAY-15` directory and start the Flask app:
@@ -36,7 +73,10 @@ This project has been restructured into a clean Frontend/Backend monolith:
 
 ---
 
-## UI Features & Styling
+## 🎨 UI Features & CSS Styling
+
+### Why this CSS is Easy to Handle
+This dashboard leverages a **Token-Driven CSS Architecture**. Instead of hunting through hundreds of lines of React components or utility classes to change a color or font, everything is centralized using CSS variables (`--tokens`). This makes theming incredibly easy to handle—you can completely re-skin the application just by changing a few hex codes in one file!
 
 ### Restyling via CSS tokens
 
