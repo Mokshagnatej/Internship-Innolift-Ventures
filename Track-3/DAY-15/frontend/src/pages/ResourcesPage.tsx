@@ -17,6 +17,7 @@ export default function ResourcesPage() {
   const [metrics, setMetrics] = useState<ResourceMetric[]>([]);
   const [loading, setLoading] = useState(true);
   const [showAddForm, setShowAddForm] = useState(false);
+  const [globalAutoDetect, setGlobalAutoDetect] = useState(true);
   
   // Form State
   const [modelName, setModelName] = useState("Random Forest Classifier");
@@ -25,10 +26,88 @@ export default function ResourcesPage() {
   const [networkIo, setNetworkIo] = useState("");
   const [diskIo, setDiskIo] = useState("");
   const [anomaly, setAnomaly] = useState(false);
+  const [autoGenerate, setAutoGenerate] = useState(false);
+
+  const handleAutoGenerateToggle = () => {
+    const newAuto = !autoGenerate;
+    setAutoGenerate(newAuto);
+    if (newAuto) {
+      setCpuUsage((40 + Math.random() * 50).toFixed(1));
+      setMemoryUsage((8 + Math.random() * 8).toFixed(1));
+      setNetworkIo((50 + Math.random() * 100).toFixed(1));
+      setDiskIo((20 + Math.random() * 80).toFixed(1));
+    } else {
+      setCpuUsage("");
+      setMemoryUsage("");
+      setNetworkIo("");
+      setDiskIo("");
+    }
+  };
 
   useEffect(() => {
     fetchMetrics();
+    fetchAutoDetect();
   }, []);
+
+  // Live Auto-Detection Simulator
+  useEffect(() => {
+    let interval: any;
+    if (globalAutoDetect) {
+      // Check for anomalies every 3 seconds
+      interval = setInterval(() => {
+        // 40% chance to detect an anomaly during this check
+        if (Math.random() < 0.4) {
+          triggerAutoAnomaly();
+        }
+      }, 3000);
+    }
+    return () => clearInterval(interval);
+  }, [globalAutoDetect]);
+
+  const triggerAutoAnomaly = async () => {
+    try {
+      await fetch("/api/resources", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          model_name: "Live Auto-Detection",
+          cpu_usage: (85 + Math.random() * 14).toFixed(1),
+          memory_usage: (12 + Math.random() * 4).toFixed(1),
+          network_io: (150 + Math.random() * 100).toFixed(1),
+          disk_io: (80 + Math.random() * 50).toFixed(1),
+          anomaly_detected: true
+        })
+      });
+      fetchMetrics(); // refresh the table
+    } catch (e) {
+      console.error(e);
+    }
+  };
+
+  const fetchAutoDetect = async () => {
+    try {
+      const res = await fetch("/api/settings/auto-detect");
+      const data = await res.json();
+      setGlobalAutoDetect(data.enabled);
+    } catch (e) {
+      console.error(e);
+    }
+  };
+
+  const toggleGlobalAutoDetect = async () => {
+    const newState = !globalAutoDetect;
+    setGlobalAutoDetect(newState);
+    try {
+      await fetch("/api/settings/auto-detect", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ enabled: newState })
+      });
+    } catch (e) {
+      console.error(e);
+      setGlobalAutoDetect(!newState);
+    }
+  };
 
   const fetchMetrics = async () => {
     try {
@@ -83,12 +162,22 @@ export default function ResourcesPage() {
           <p className="text-slate-400">Monitor CPU, Memory, and I/O metrics across your deployed ML models.</p>
         </motion.div>
         
-        <button 
-          onClick={() => setShowAddForm(!showAddForm)}
-          className="flex items-center gap-2 px-5 py-2.5 bg-[#00d9ff]/10 text-[#00d9ff] border border-[#00d9ff]/20 rounded-xl font-medium hover:bg-[#00d9ff]/20 transition-colors"
-        >
-          {showAddForm ? "Cancel" : <><Plus className="w-4 h-4" /> Log Metrics</>}
-        </button>
+        <div className="flex items-center gap-4">
+          <label className="flex items-center gap-3 cursor-pointer bg-[#0d1117] px-4 py-2.5 rounded-xl border border-white/5 shadow-sm">
+            <span className="text-sm font-medium text-white">Global Auto-Logging</span>
+            <input type="checkbox" className="hidden" checked={globalAutoDetect} onChange={toggleGlobalAutoDetect} />
+            <div className={`w-12 h-6 rounded-full transition-colors relative ${globalAutoDetect ? 'bg-[#34d399]' : 'bg-white/10'}`}>
+              <div className={`absolute top-1 w-4 h-4 rounded-full bg-white transition-transform ${globalAutoDetect ? 'left-7' : 'left-1'}`} />
+            </div>
+          </label>
+
+          <button 
+            onClick={() => setShowAddForm(!showAddForm)}
+            className="flex items-center gap-2 px-5 py-2.5 bg-[#00d9ff]/10 text-[#00d9ff] border border-[#00d9ff]/20 rounded-xl font-medium hover:bg-[#00d9ff]/20 transition-colors"
+          >
+            {showAddForm ? "Cancel" : <><Plus className="w-4 h-4" /> Log Metrics</>}
+          </button>
+        </div>
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
@@ -148,12 +237,23 @@ export default function ResourcesPage() {
               </div>
               
               <div className="flex items-center justify-between mt-4 border-t border-white/5 pt-5">
-                <label className="flex items-center gap-3 cursor-pointer">
-                  <div className={`w-12 h-6 rounded-full transition-colors relative ${anomaly ? 'bg-red-500' : 'bg-white/10'}`}>
-                    <div className={`absolute top-1 w-4 h-4 rounded-full bg-white transition-transform ${anomaly ? 'left-7' : 'left-1'}`} />
-                  </div>
-                  <span className="text-sm font-medium text-white">Mark as Anomaly</span>
-                </label>
+                <div className="flex flex-wrap gap-6">
+                  <label className="flex items-center gap-3 cursor-pointer">
+                    <input type="checkbox" className="hidden" checked={autoGenerate} onChange={handleAutoGenerateToggle} />
+                    <div className={`w-12 h-6 rounded-full transition-colors relative ${autoGenerate ? 'bg-[#00d9ff]' : 'bg-white/10'}`}>
+                      <div className={`absolute top-1 w-4 h-4 rounded-full bg-white transition-transform ${autoGenerate ? 'left-7' : 'left-1'}`} />
+                    </div>
+                    <span className="text-sm font-medium text-white">Auto-fill Values</span>
+                  </label>
+
+                  <label className="flex items-center gap-3 cursor-pointer">
+                    <input type="checkbox" className="hidden" checked={anomaly} onChange={() => setAnomaly(!anomaly)} />
+                    <div className={`w-12 h-6 rounded-full transition-colors relative ${anomaly ? 'bg-red-500' : 'bg-white/10'}`}>
+                      <div className={`absolute top-1 w-4 h-4 rounded-full bg-white transition-transform ${anomaly ? 'left-7' : 'left-1'}`} />
+                    </div>
+                    <span className="text-sm font-medium text-white">Mark as Anomaly</span>
+                  </label>
+                </div>
 
                 <button type="submit" className="px-6 py-2.5 bg-[#00d9ff] text-[#080b12] font-semibold rounded-xl hover:shadow-[0_0_20px_-5px_#00d9ff] transition-shadow">
                   Save Metrics

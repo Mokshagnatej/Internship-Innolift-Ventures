@@ -74,7 +74,34 @@ def get_resources_db_connection():
     db_path = os.path.join(current_app.root_path, '..', 'data', 'server_resources.db')
     conn = sqlite3.connect(db_path)
     conn.row_factory = sqlite3.Row
+    conn.execute('CREATE TABLE IF NOT EXISTS settings (key TEXT PRIMARY KEY, value TEXT)')
+    conn.execute('INSERT OR IGNORE INTO settings (key, value) VALUES ("auto_detect", "true")')
+    conn.commit()
     return conn
+
+@bp.route('/api/settings/auto-detect', methods=['GET'])
+def get_auto_detect():
+    try:
+        conn = get_resources_db_connection()
+        row = conn.execute('SELECT value FROM settings WHERE key="auto_detect"').fetchone()
+        conn.close()
+        is_enabled = True if row and row['value'] == 'true' else False
+        return jsonify({"enabled": is_enabled})
+    except Exception as e:
+        return jsonify({"error": str(e)}), 500
+
+@bp.route('/api/settings/auto-detect', methods=['POST'])
+def set_auto_detect():
+    try:
+        data = request.json
+        is_enabled = 'true' if data.get('enabled') else 'false'
+        conn = get_resources_db_connection()
+        conn.execute('UPDATE settings SET value=? WHERE key="auto_detect"', (is_enabled,))
+        conn.commit()
+        conn.close()
+        return jsonify({"status": "success", "enabled": data.get('enabled')})
+    except Exception as e:
+        return jsonify({"error": str(e)}), 500
 
 @bp.route('/api/resources', methods=['GET'])
 def get_resources():
@@ -125,6 +152,30 @@ def predict():
         if prediction_val == 1:
             prediction_text = "Anomaly Detected! 🚨"
             status_class = "danger"
+            
+            # Automatically log this anomaly to the Server Metrics DB if auto-detect is ON
+            try:
+                conn = get_resources_db_connection()
+                row = conn.execute('SELECT value FROM settings WHERE key="auto_detect"').fetchone()
+                auto_detect_enabled = True if row and row['value'] == 'true' else False
+                
+                if auto_detect_enabled:
+                    timestamp = datetime.datetime.now().isoformat()
+                    # Generate realistic "high load" metrics for the anomaly
+                    cpu_usage = round(85.0 + (np.random.rand() * 14.9), 1) # 85% to 99.9%
+                    memory_usage = round(12.0 + (np.random.rand() * 4.0), 1) # 12GB to 16GB
+                    network_io = round(150.0 + (np.random.rand() * 100.0), 1) # High network
+                    disk_io = round(80.0 + (np.random.rand() * 50.0), 1) # High disk
+                    
+                    conn.execute(
+                        'INSERT INTO resource_metrics (model_name, cpu_usage, memory_usage, network_io, disk_io, anomaly_detected, timestamp) VALUES (?, ?, ?, ?, ?, ?, ?)',
+                        ("Live Telemetry Model", cpu_usage, memory_usage, network_io, disk_io, True, timestamp)
+                    )
+                    conn.commit()
+                conn.close()
+            except Exception as db_err:
+                print("Failed to auto-log anomaly:", db_err)
+                
         else:
             prediction_text = "System Operating Normally ✅"
             status_class = "success"
