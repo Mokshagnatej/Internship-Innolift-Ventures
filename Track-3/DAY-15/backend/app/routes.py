@@ -7,7 +7,7 @@ import os
 import secrets
 from flask_mail import Message
 from app import db, mail
-from app.models import User
+from app.models import User, ResourceMetric, SystemSettings
 
 bp = Blueprint('main', __name__)
 
@@ -67,67 +67,6 @@ def add_expense():
         conn.execute(
             'INSERT INTO expenses (title, amount, category, payment_mode, expense_date, description) VALUES (?, ?, ?, ?, ?, ?)',
             (data['title'], float(data['amount']), data['category'], payment_mode, expense_date, description)
-        )
-        conn.commit()
-        conn.close()
-        return jsonify({"status": "success"}), 201
-    except Exception as e:
-        return jsonify({"error": str(e)}), 500
-
-def get_resources_db_connection():
-    db_path = os.path.join(current_app.root_path, '..', 'data', 'server_resources.db')
-    conn = sqlite3.connect(db_path)
-    conn.row_factory = sqlite3.Row
-    conn.execute('CREATE TABLE IF NOT EXISTS settings (key TEXT PRIMARY KEY, value TEXT)')
-    conn.execute('INSERT OR IGNORE INTO settings (key, value) VALUES ("auto_detect", "true")')
-    conn.commit()
-    return conn
-
-@bp.route('/api/settings/auto-detect', methods=['GET'])
-def get_auto_detect():
-    try:
-        conn = get_resources_db_connection()
-        row = conn.execute('SELECT value FROM settings WHERE key="auto_detect"').fetchone()
-        conn.close()
-        is_enabled = True if row and row['value'] == 'true' else False
-        return jsonify({"enabled": is_enabled})
-    except Exception as e:
-        return jsonify({"error": str(e)}), 500
-
-@bp.route('/api/settings/auto-detect', methods=['POST'])
-def set_auto_detect():
-    try:
-        data = request.json
-        is_enabled = 'true' if data.get('enabled') else 'false'
-        conn = get_resources_db_connection()
-        conn.execute('UPDATE settings SET value=? WHERE key="auto_detect"', (is_enabled,))
-        conn.commit()
-        conn.close()
-        return jsonify({"status": "success", "enabled": data.get('enabled')})
-    except Exception as e:
-        return jsonify({"error": str(e)}), 500
-
-@bp.route('/api/resources', methods=['GET'])
-def get_resources():
-    try:
-        conn = get_resources_db_connection()
-        resources = conn.execute('SELECT * FROM resource_metrics ORDER BY timestamp DESC').fetchall()
-        conn.close()
-        return jsonify([dict(row) for row in resources])
-    except Exception as e:
-        return jsonify({"error": str(e)}), 500
-
-@bp.route('/api/resources', methods=['POST'])
-def add_resource():
-    try:
-        data = request.json
-        conn = get_resources_db_connection()
-        
-        timestamp = datetime.datetime.now().isoformat()
-        
-        conn.execute(
-            'INSERT INTO resource_metrics (model_name, cpu_usage, memory_usage, network_io, disk_io, anomaly_detected, timestamp) VALUES (?, ?, ?, ?, ?, ?, ?)',
-            (data['model_name'], float(data['cpu_usage']), float(data['memory_usage']), float(data['network_io']), float(data['disk_io']), bool(data.get('anomaly_detected', False)), timestamp)
         )
         conn.commit()
         conn.close()
@@ -208,7 +147,7 @@ def delete_user(user_id):
         
         db.session.delete(user)
         db.session.commit()
-        return jsonify({"status": "success", "message": "User removed successfully"})
+        return jsonify({"message": "User deleted successfully"}), 200
     except Exception as e:
         db.session.rollback()
         return jsonify({"error": str(e)}), 500
@@ -327,3 +266,54 @@ def predict():
 
     except Exception as e:
         return render_template('index.html', feature_groups=FEATURE_GROUPS, prediction=f"Error: {str(e)}", status_class="warning", submitted_data=request.form)
+
+
+@bp.route('/api/resources', methods=['GET'])
+def get_resources():
+    metrics = ResourceMetric.query.order_by(ResourceMetric.timestamp.desc()).all()
+    return jsonify([{
+        'id': m.id,
+        'model_name': m.model_name,
+        'cpu_usage': m.cpu_usage,
+        'memory_usage': m.memory_usage,
+        'network_io': m.network_io,
+        'disk_io': m.disk_io,
+        'anomaly_detected': m.anomaly_detected,
+        'timestamp': m.timestamp.isoformat()
+    } for m in metrics]), 200
+
+@bp.route('/api/resources', methods=['POST'])
+def add_resource():
+    data = request.get_json()
+    new_metric = ResourceMetric(
+        model_name=data.get('model_name'),
+        cpu_usage=data.get('cpu_usage'),
+        memory_usage=data.get('memory_usage'),
+        network_io=data.get('network_io'),
+        disk_io=data.get('disk_io'),
+        anomaly_detected=data.get('anomaly_detected', False)
+    )
+    db.session.add(new_metric)
+    db.session.commit()
+    return jsonify({"message": "Metric added successfully"}), 201
+
+@bp.route('/api/settings/auto-detect', methods=['GET'])
+def get_auto_detect():
+    setting = SystemSettings.query.filter_by(key='auto_detect').first()
+    enabled = setting.value == 'true' if setting else True
+    return jsonify({"enabled": enabled}), 200
+
+@bp.route('/api/settings/auto-detect', methods=['POST'])
+def set_auto_detect():
+    data = request.get_json()
+    enabled = data.get('enabled', True)
+    
+    setting = SystemSettings.query.filter_by(key='auto_detect').first()
+    if setting:
+        setting.value = 'true' if enabled else 'false'
+    else:
+        setting = SystemSettings(key='auto_detect', value='true' if enabled else 'false')
+        db.session.add(setting)
+        
+    db.session.commit()
+    return jsonify({"message": "Setting updated"}), 200

@@ -66,7 +66,7 @@ export default function ResourcesPage() {
 
   const triggerAutoAnomaly = async () => {
     try {
-      await fetch("/api/resources", {
+      await fetch("http://127.0.0.1:8081/api/resources", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
@@ -86,7 +86,7 @@ export default function ResourcesPage() {
 
   const fetchAutoDetect = async () => {
     try {
-      const res = await fetch("/api/settings/auto-detect");
+      const res = await fetch("http://127.0.0.1:8081/api/settings/auto-detect");
       const data = await res.json();
       setGlobalAutoDetect(data.enabled);
     } catch (e) {
@@ -98,7 +98,7 @@ export default function ResourcesPage() {
     const newState = !globalAutoDetect;
     setGlobalAutoDetect(newState);
     try {
-      await fetch("/api/settings/auto-detect", {
+      await fetch("http://127.0.0.1:8081/api/settings/auto-detect", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ enabled: newState })
@@ -111,7 +111,7 @@ export default function ResourcesPage() {
 
   const fetchMetrics = async () => {
     try {
-      const res = await fetch("/api/resources");
+      const res = await fetch("http://127.0.0.1:8081/api/resources");
       const data = await res.json();
       setMetrics(data);
     } catch (e) {
@@ -126,7 +126,7 @@ export default function ResourcesPage() {
     if (!cpuUsage || !memoryUsage || !networkIo || !diskIo) return;
 
     try {
-      const res = await fetch("/api/resources", {
+      const res = await fetch("http://127.0.0.1:8081/api/resources", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
