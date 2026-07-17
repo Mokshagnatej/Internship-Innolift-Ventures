@@ -1,8 +1,8 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "motion/react";
-import { Bell, Key, Shield, User, Database, Cpu, Save, CheckCircle2 } from "lucide-react";
+import { Bell, Key, Shield, User, Database, Cpu, Save, CheckCircle2, DollarSign, Clock, CreditCard, Plus } from "lucide-react";
 
-type TabId = "aws" | "alerts" | "users" | "security" | "models";
+type TabId = "aws" | "alerts" | "users" | "security" | "models" | "billing";
 
 export default function SettingsPage() {
   const [activeTab, setActiveTab] = useState<TabId>("aws");
@@ -18,6 +18,7 @@ export default function SettingsPage() {
     { id: "alerts", title: "Alert Routing", icon: <Bell className="w-5 h-5" /> },
     { id: "models", title: "Model Parameters", icon: <Cpu className="w-5 h-5" /> },
     { id: "users", title: "User Management", icon: <User className="w-5 h-5" /> },
+    { id: "billing", title: "Billing & Costs", icon: <DollarSign className="w-5 h-5" /> },
     { id: "security", title: "Security & Audit", icon: <Shield className="w-5 h-5" /> },
   ] as const;
 
@@ -82,6 +83,7 @@ export default function SettingsPage() {
               {activeTab === "alerts" && <AlertSettings />}
               {activeTab === "models" && <ModelSettings />}
               {activeTab === "users" && <UserSettings />}
+              {activeTab === "billing" && <BillingSettings />}
               {activeTab === "security" && <SecuritySettings />}
             </motion.div>
           </AnimatePresence>
@@ -233,37 +235,89 @@ function ModelSettings() {
 }
 
 function UserSettings() {
-  const [users, setUsers] = useState([
-    { id: 1, name: "Sarah Jenkins", email: "sarah@ops.inc", role: "Admin", status: "Active" },
-    { id: 2, name: "David Chen", email: "david@ops.inc", role: "Editor", status: "Active" },
-    { id: 3, name: "Alex Mercer", email: "alex@ops.inc", role: "Viewer", status: "Pending" },
-  ]);
+  const [users, setUsers] = useState<any[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchUsers = async () => {
+      try {
+        const response = await fetch("http://127.0.0.1:8081/api/users");
+        if (response.ok) {
+          const data = await response.json();
+          setUsers(data);
+        }
+      } catch (err) {
+        console.error("Failed to fetch users:", err);
+      } finally {
+        setIsLoading(false);
+      }
+    };
+    fetchUsers();
+  }, []);
 
   const [showInviteForm, setShowInviteForm] = useState(false);
   const [newUserName, setNewUserName] = useState("");
   const [newUserEmail, setNewUserEmail] = useState("");
   const [newUserRole, setNewUserRole] = useState("Viewer");
+  const [isInviting, setIsInviting] = useState(false);
+  const [inviteError, setInviteError] = useState("");
 
-  const handleInvite = (e: React.FormEvent) => {
+  const handleInvite = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!newUserName || !newUserEmail) return;
     
-    setUsers([...users, {
-      id: Date.now(),
-      name: newUserName,
-      email: newUserEmail,
-      role: newUserRole,
-      status: "Pending"
-    }]);
-    
-    setNewUserName("");
-    setNewUserEmail("");
-    setNewUserRole("Viewer");
-    setShowInviteForm(false);
+    setIsInviting(true);
+    setInviteError("");
+
+    try {
+      const response = await fetch("http://127.0.0.1:8081/api/invite", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          email: newUserEmail,
+          role: newUserRole.toLowerCase()
+        }),
+      });
+
+      const data = await response.json();
+
+      if (!response.ok) {
+        throw new Error(data.error || "Failed to send invite");
+      }
+
+      setUsers([...users, {
+        id: Date.now(),
+        name: newUserName,
+        email: newUserEmail,
+        role: newUserRole,
+        status: "Pending"
+      }]);
+      
+      setNewUserName("");
+      setNewUserEmail("");
+      setNewUserRole("Viewer");
+      setShowInviteForm(false);
+    } catch (err: any) {
+      setInviteError(err.message);
+    } finally {
+      setIsInviting(false);
+    }
   };
 
-  const removeUser = (id: number) => {
-    setUsers(users.filter(u => u.id !== id));
+  const removeUser = async (id: number) => {
+    try {
+      const response = await fetch(`http://127.0.0.1:8081/api/users/${id}`, {
+        method: "DELETE"
+      });
+      if (response.ok) {
+        setUsers(users.filter(u => u.id !== id));
+      } else {
+        const errData = await response.json();
+        console.error("Failed to delete user:", errData.error);
+      }
+    } catch (err) {
+      console.error("Failed to delete user:", err);
+    }
   };
 
   return (
@@ -307,9 +361,14 @@ function UserSettings() {
                   <option>Viewer</option>
                 </select>
               </div>
-              <button type="submit" className="px-5 py-2 bg-[#00d9ff] text-[#080b12] font-medium rounded-lg hover:shadow-[0_0_15px_-3px_#00d9ff] transition-shadow text-sm">
-                Send Invite
+              <button type="submit" disabled={isInviting} className="px-5 py-2 bg-[#00d9ff] text-[#080b12] font-medium rounded-lg hover:shadow-[0_0_15px_-3px_#00d9ff] transition-shadow text-sm disabled:opacity-50 disabled:cursor-not-allowed">
+                {isInviting ? "Sending..." : "Send Invite"}
               </button>
+              {inviteError && (
+                <div className="w-full mt-2 text-rose-400 text-sm bg-rose-500/10 px-3 py-2 rounded border border-rose-500/20">
+                  {inviteError}
+                </div>
+              )}
             </div>
           </motion.form>
         )}
@@ -329,7 +388,7 @@ function UserSettings() {
             {users.map((user) => (
               <tr key={user.id} className="group transition-colors hover:bg-white/[0.02]">
                 <td className="px-6 py-4">
-                  <div className="text-white font-medium">{user.name}</div>
+                  <div className="text-white font-medium">{user.name || "Team Member"}</div>
                   <div className="text-sm text-slate-500">{user.email}</div>
                 </td>
                 <td className="px-6 py-4">
@@ -353,10 +412,17 @@ function UserSettings() {
                 </td>
               </tr>
             ))}
-            {users.length === 0 && (
+            {users.length === 0 && !isLoading && (
               <tr>
                 <td colSpan={4} className="px-6 py-8 text-center text-slate-500 text-sm">
                   No users found.
+                </td>
+              </tr>
+            )}
+            {isLoading && (
+              <tr>
+                <td colSpan={4} className="px-6 py-8 text-center text-slate-500 text-sm">
+                  Loading users...
                 </td>
               </tr>
             )}
@@ -405,6 +471,191 @@ function SecuritySettings() {
             <option>24 Hours</option>
           </select>
         </div>
+      </div>
+    </div>
+  );
+}
+
+// --- Billing Sub-component ---
+interface Expense {
+  id: number;
+  title: string;
+  amount: number;
+  category: string;
+  payment_mode: string;
+  expense_date: string;
+  description: string;
+}
+
+function BillingSettings() {
+  const [expenses, setExpenses] = useState<Expense[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [showAddForm, setShowAddForm] = useState(false);
+  
+  // Form State
+  const [title, setTitle] = useState("");
+  const [amount, setAmount] = useState("");
+  const [category, setCategory] = useState("EC2 Compute");
+
+  useEffect(() => {
+    fetchExpenses();
+  }, []);
+
+  const fetchExpenses = async () => {
+    try {
+      const res = await fetch("/api/expenses");
+      const data = await res.json();
+      setExpenses(data);
+    } catch (e) {
+      console.error(e);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const handleAddExpense = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!title || !amount) return;
+
+    try {
+      const res = await fetch("/api/expenses", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          title,
+          amount: parseFloat(amount),
+          category,
+          payment_mode: "AWS Credits",
+          expense_date: new Date().toISOString().split('T')[0],
+          description: "Logged via Ops Center"
+        })
+      });
+      if (res.ok) {
+        setTitle("");
+        setAmount("");
+        setShowAddForm(false);
+        fetchExpenses();
+      }
+    } catch (e) {
+      console.error(e);
+    }
+  };
+
+  const totalAmount = expenses.reduce((sum, exp) => sum + exp.amount, 0);
+
+  return (
+    <div className="pb-20 space-y-6">
+      <div className="flex justify-between items-start mb-6">
+        <div>
+          <h2 className="text-xl font-semibold text-white mb-1">Cloud Infrastructure Billing</h2>
+          <p className="text-slate-400 text-sm">Track and manage your AWS usage costs and ML inference expenses.</p>
+        </div>
+        
+        <button 
+          onClick={() => setShowAddForm(!showAddForm)}
+          className="flex items-center gap-2 px-4 py-2 border border-white/10 rounded-lg text-sm text-white hover:bg-white/5 transition-colors"
+        >
+          {showAddForm ? "Cancel" : <><Plus className="w-4 h-4" /> Log Expense</>}
+        </button>
+      </div>
+
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6 max-w-4xl">
+        <div className="bg-[#080b12] border border-white/5 p-5 rounded-xl">
+          <div className="text-slate-400 text-sm mb-1">Total Tracked Costs</div>
+          <div className="text-2xl font-bold text-white">${totalAmount.toLocaleString(undefined, { minimumFractionDigits: 2 })}</div>
+        </div>
+        <div className="bg-[#080b12] border border-white/5 p-5 rounded-xl">
+          <div className="text-slate-400 text-sm mb-1">Total Entries</div>
+          <div className="text-2xl font-bold text-white">{expenses.length}</div>
+        </div>
+      </div>
+      
+      <AnimatePresence>
+        {showAddForm && (
+          <motion.form
+            initial={{ opacity: 0, height: 0 }}
+            animate={{ opacity: 1, height: "auto" }}
+            exit={{ opacity: 0, height: 0 }}
+            className="overflow-hidden"
+            onSubmit={handleAddExpense}
+          >
+            <div className="p-5 bg-[#080b12] border border-[#00d9ff]/30 rounded-xl mb-6 flex flex-wrap gap-4 items-end max-w-4xl shadow-[0_0_20px_-10px_rgba(0,217,255,0.1)]">
+              <div className="flex-1 min-w-[200px]">
+                <label className="block text-xs font-medium text-slate-400 mb-1.5">Expense Title</label>
+                <input required value={title} onChange={e => setTitle(e.target.value)} type="text" placeholder="e.g. SageMaker Training Instance" className="w-full bg-[#0d1117] border border-white/10 rounded-lg px-3 py-2 text-white focus:outline-none focus:border-[#00d9ff] text-sm" />
+              </div>
+              <div className="w-[120px]">
+                <label className="block text-xs font-medium text-slate-400 mb-1.5">Amount ($)</label>
+                <input required value={amount} onChange={e => setAmount(e.target.value)} type="number" step="0.01" min="0" placeholder="125.50" className="w-full bg-[#0d1117] border border-white/10 rounded-lg px-3 py-2 text-white focus:outline-none focus:border-[#00d9ff] text-sm" />
+              </div>
+              <div className="w-[180px]">
+                <label className="block text-xs font-medium text-slate-400 mb-1.5">Category</label>
+                <select value={category} onChange={e => setCategory(e.target.value)} className="w-full bg-[#0d1117] border border-white/10 rounded-lg px-3 py-2 text-white focus:outline-none focus:border-[#00d9ff] text-sm appearance-none">
+                  <option>EC2 Compute</option>
+                  <option>RDS Database</option>
+                  <option>ML Inference (SageMaker)</option>
+                  <option>S3 Storage</option>
+                  <option>Other</option>
+                </select>
+              </div>
+              <button type="submit" className="px-5 py-2 bg-[#00d9ff] text-[#080b12] font-medium rounded-lg hover:shadow-[0_0_15px_-3px_#00d9ff] transition-shadow text-sm">
+                Save Cost
+              </button>
+            </div>
+          </motion.form>
+        )}
+      </AnimatePresence>
+      
+      <div className="bg-[#080b12] border border-white/5 rounded-xl overflow-hidden max-w-4xl">
+        {loading ? (
+          <div className="p-8 text-center text-slate-400 text-sm">Loading expenses...</div>
+        ) : (
+          <table className="w-full text-left">
+            <thead className="bg-white/5 border-b border-white/5">
+              <tr>
+                <th className="px-6 py-3 text-sm font-medium text-slate-300">Description</th>
+                <th className="px-6 py-3 text-sm font-medium text-slate-300">Category</th>
+                <th className="px-6 py-3 text-sm font-medium text-slate-300">Date</th>
+                <th className="px-6 py-3 text-sm font-medium text-slate-300 text-right">Amount</th>
+              </tr>
+            </thead>
+            <tbody className="divide-y divide-white/5">
+              {expenses.length === 0 ? (
+                <tr>
+                  <td colSpan={4} className="px-6 py-8 text-center text-slate-500 text-sm">
+                    No infrastructure expenses recorded yet.
+                  </td>
+                </tr>
+              ) : (
+                expenses.map((expense) => (
+                  <tr key={expense.id} className="hover:bg-white/[0.02] transition-colors group">
+                    <td className="px-6 py-4">
+                      <div className="text-white font-medium">{expense.title}</div>
+                      <div className="text-sm text-slate-500 flex items-center gap-1 mt-0.5">
+                        <CreditCard className="w-3 h-3" /> {expense.payment_mode}
+                      </div>
+                    </td>
+                    <td className="px-6 py-4">
+                      <span className="px-2.5 py-1 rounded-md bg-white/5 text-slate-300 text-xs border border-white/10">
+                        {expense.category}
+                      </span>
+                    </td>
+                    <td className="px-6 py-4 text-sm text-slate-400">
+                      <div className="flex items-center gap-1.5">
+                        <Clock className="w-3.5 h-3.5" /> {expense.expense_date}
+                      </div>
+                    </td>
+                    <td className="px-6 py-4 text-right">
+                      <span className="font-mono text-[#34d399] font-medium">
+                        ${expense.amount.toFixed(2)}
+                      </span>
+                    </td>
+                  </tr>
+                ))
+              )}
+            </tbody>
+          </table>
+        )}
       </div>
     </div>
   );

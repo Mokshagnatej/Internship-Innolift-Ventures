@@ -4,7 +4,6 @@ import Dashboard from "../pages/Dashboard";
 import ModelsPage from "../pages/ModelsPage";
 import SettingsPage from "../pages/SettingsPage";
 import DatabasePage from "../pages/DatabasePage";
-import BillingPage from "../pages/BillingPage";
 import ResourcesPage from "../pages/ResourcesPage";
 import Layout from "../components/Layout";
 
@@ -17,7 +16,6 @@ export default function App() {
         <Route path="/models" element={<ModelsPage />} />
         <Route path="/settings" element={<SettingsPage />} />
         <Route path="/databases" element={<DatabasePage />} />
-        <Route path="/billing" element={<BillingPage />} />
         <Route path="/resources" element={<ResourcesPage />} />
       </Route>
     </Routes>

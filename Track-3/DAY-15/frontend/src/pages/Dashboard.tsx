@@ -21,6 +21,8 @@ import {
   ChevronDown,
   Globe,
   Check,
+  User,
+  LogOut,
 } from "lucide-react";
 
 // ─── Web Audio snap sound & Haptics ──────────────────────────────────────────
@@ -466,6 +468,7 @@ function buildRegionData(factor: number) {
 // ─── Main App ─────────────────────────────────────────────────────────────────
 
 export default function App() {
+  const navigate = () => window.location.href = "/login";
   const [alertToggles, setAlertToggles] = useState<Record<string, boolean>>(
     () => Object.fromEntries(ALERTS_INIT.map((a) => [a.id, a.enabled]))
   );
@@ -612,6 +615,20 @@ export default function App() {
           <div className="hidden sm:flex items-center gap-2">
             <div className={`w-1.5 h-1.5 rounded-full ${globalMonitor ? "bg-emerald-400 animate-pulse" : "bg-muted-foreground"}`} />
             <span className="text-[11px] font-mono text-muted-foreground">{globalMonitor ? "LIVE" : "PAUSED"}</span>
+          </div>
+
+          <div className="flex items-center gap-2 px-3 py-1.5 rounded-full border border-border bg-card/50 transition-colors hover:border-cyan-500/30">
+            <div className="w-5 h-5 rounded-full bg-cyan-500/20 flex items-center justify-center text-cyan-400">
+              <User size={12} />
+            </div>
+            <span className="text-xs font-medium text-foreground">admin@example.com</span>
+            <button 
+              onClick={navigate}
+              className="ml-2 text-muted-foreground hover:text-rose-400 transition-colors"
+              title="Logout"
+            >
+              <LogOut size={13} />
+            </button>
           </div>
 
           <button className="p-1.5 rounded border border-border text-muted-foreground hover:text-foreground hover:border-border/80 transition-colors">

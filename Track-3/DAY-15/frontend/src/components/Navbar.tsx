@@ -9,7 +9,6 @@ export default function Navbar() {
     { name: "Live Telemetry", path: "/dashboard", icon: <Activity className="w-4 h-4" /> },
     { name: "ML Models", path: "/models", icon: <Shield className="w-4 h-4" /> },
     { name: "Databases", path: "/databases", icon: <Database className="w-4 h-4" /> },
-    { name: "Billing", path: "/billing", icon: <DollarSign className="w-4 h-4" /> },
     { name: "Server Metrics", path: "/resources", icon: <Cpu className="w-4 h-4" /> },
     { name: "Settings", path: "/settings", icon: <Settings className="w-4 h-4" /> },
   ];
