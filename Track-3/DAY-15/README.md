@@ -13,11 +13,15 @@ Today, we completely overhauled our application by transitioning from a basic se
 - **Vite & React Integration:** We integrated a full React single-page application (SPA) natively compiled via Vite directly into our Flask setup.
 - **Monorepo Restructuring:** We organized the workspace into a clean, professional `frontend/` (React) and backend (Flask) monorepo architecture.
 - **Edge-to-Edge Layout:** We removed constraints (`max-w-7xl` and horizontal padding) to make the dashboard perfectly flush with the edges of the browser for a premium, immersive feel.
+- **Real Database Authentication:** Replaced hard-coded mock logins with a secure SQLite backend utilizing hashed passwords.
+- **Dynamic User Invitations:** Built an automated email engine using `Flask-Mail` and Google SMTP to dispatch secure, temporary passwords to new users.
+- **Live User Management:** Wired the Settings dashboard to perform real-time CRUD operations against the database.
+- **UI Streamlining:** Merged the standalone Login and Billing pages into the Hero and Settings pages, drastically reducing navigation clutter.
 
 **Benefits of these Changes:**
 - **Decoupled Architecture:** The UI and backend are completely separate. You can iterate on the Figma design and drop in the new code without ever touching the Python backend logic.
 - **Enhanced User Experience:** We unlocked high-performance micro-animations (via Framer Motion), instant state updates without page reloads, and complex UI elements like iOS spring toggles and Web Audio API snaps.
-- **Maintainability:** The codebase is now structured professionally, making it extremely easy to manage both sides of the stack.
+- **Production-Ready Security:** The application now handles live sessions securely, segregates sensitive SMTP credentials into a `.env` file, and establishes the groundwork for role-based access control.
 
 ---
 
@@ -36,27 +40,41 @@ DAY-15/
 ├── app/                        # ⚙️ The Flask backend serving the frontend
 │   ├── static/assets/          # Compiled CSS & JS from the React build
 │   ├── templates/index.html    # The entry point linking to the React build
-│   ├── __init__.py             # Flask App Factory
-│   └── routes.py               # API endpoints (/predict)
+│   ├── __init__.py             # Flask App Factory with CORS and Mail integration
+│   ├── models.py               # Database schemas (e.g., User model)
+│   └── routes.py               # API endpoints (/predict, /api/login, /api/invite, /api/users)
 │
 ├── machine_learning/           # 🧠 Core Random Forest ML models
-├── data/                       # 💾 Local database for ML processing
+├── backend/data/               # 💾 Secure local SQLite databases (app.db)
 ├── outputs/                    # 📊 Generated batch predictions & charts
-├── scripts/                    # 🛠️ Python automation utilities
-├── config.py                   # 🔧 App Configuration
-└── run.py                      # 🚀 The entry point for the Flask server
+├── scripts/                    # 🛠️ Python automation utilities (e.g., test_email.py)
+├── backend/config.py           # 🔧 App Configuration & Environment Variables
+├── backend/.env                # 🔒 Sensitive SMTP credentials and settings
+└── backend/run.py              # 🚀 The entry point for the Flask server
 ```
 
 ---
 
 ## 🚀 How to Run the Application
 
-1. **Start the Backend Server**
-   Ensure you are in the `DAY-15` directory and start the Flask app:
+1. **Environment Setup**
+   Ensure you have configured your `/backend/.env` file with valid Google SMTP credentials (App Password) for the email invitation engine to function properly.
+
+2. **Start the Backend Server**
+   Navigate to the `backend` directory and start the Flask app:
    ```bash
+   cd backend
    python3 run.py
    ```
-   *The server will start on port `8080`. You can view the dashboard by opening `http://localhost:8080` in your browser.*
+   *The server will start on port `8081`. The API will be available for frontend requests.*
+
+3. **Start the Frontend Development Server**
+   In a separate terminal, navigate to the `frontend` directory:
+   ```bash
+   cd frontend
+   npm run dev
+   ```
+   *You can view the dashboard by opening `http://localhost:5173` in your browser.*
 
 2. **Updating the Frontend (Figma Exports)**
    If you make updates to the Figma design and export a new codebase, extract the `.zip` contents directly into the `frontend/` folder, then rebuild the assets:

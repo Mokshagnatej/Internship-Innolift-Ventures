@@ -241,6 +241,39 @@ def login():
         }
     })
 
+@bp.route('/api/register', methods=['POST'])
+def register():
+    data = request.get_json()
+    email = data.get('email')
+    password = data.get('password')
+
+    if not email or not password:
+        return jsonify({"error": "Email and password are required"}), 400
+
+    existing_user = User.query.filter_by(email=email).first()
+    if existing_user:
+        return jsonify({"error": "An account with this email already exists"}), 409
+
+    try:
+        new_user = User(email=email, role='viewer', status='active')
+        new_user.set_password(password)
+        db.session.add(new_user)
+        db.session.commit()
+        
+        return jsonify({
+            "status": "success", 
+            "message": "Account created successfully",
+            "user": {
+                "id": new_user.id,
+                "email": new_user.email,
+                "role": new_user.role,
+                "status": new_user.status
+            }
+        }), 201
+    except Exception as e:
+        db.session.rollback()
+        return jsonify({"error": str(e)}), 500
+
 @bp.route('/', defaults={'path': ''})
 @bp.route('/<path:path>')
 def index(path):

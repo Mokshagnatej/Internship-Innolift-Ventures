@@ -68,9 +68,10 @@ interface ToggleProps {
   onChange: (v: boolean) => void;
   color?: string;
   size?: "sm" | "md" | "lg";
+  disabled?: boolean;
 }
 
-function Toggle({ checked, onChange, color = "#00d9ff", size = "md" }: ToggleProps) {
+function Toggle({ checked, onChange, color = "#00d9ff", size = "md", disabled = false }: ToggleProps) {
   const dims = {
     sm: { w: 36, h: 22, thumb: 18, pad: 2 },
     md: { w: 51, h: 31, thumb: 27, pad: 2 },
@@ -107,10 +108,13 @@ function Toggle({ checked, onChange, color = "#00d9ff", size = "md" }: TogglePro
 
   return (
     <motion.button
+      disabled={disabled}
       onClick={() => {
-        const next = !checked;
-        playSnapSound(next);
-        onChange(next);
+        if (!disabled) {
+          const next = !checked;
+          playSnapSound(next);
+          onChange(next);
+        }
       }}
       style={{
         width: dims.w,
@@ -121,7 +125,7 @@ function Toggle({ checked, onChange, color = "#00d9ff", size = "md" }: TogglePro
         display: "flex",
         alignItems: "center",
         border: "1px solid rgba(255,255,255,0.05)",
-        cursor: "pointer",
+        cursor: disabled ? "not-allowed" : "pointer",
         position: "relative",
         flexShrink: 0,
         boxShadow: "inset 0 2px 4px rgba(0,0,0,0.3)",
@@ -488,6 +492,13 @@ export default function App() {
   const [globalMonitor, setGlobalMonitor] = useState(true);
   const [autoRemediate, setAutoRemediate] = useState(false);
   const [mlEnabled, setMlEnabled] = useState(true);
+  const [autoScaling, setAutoScaling] = useState(false);
+  const [anomalyMode, setAnomalyMode] = useState(false);
+  
+  // Read user role
+  const userStr = localStorage.getItem("user");
+  const user = userStr ? JSON.parse(userStr) : null;
+  const isViewer = user?.role === 'viewer';
   const [showSettings, setShowSettings] = useState(false);
   const [soundEnabled, setSoundEnabled] = useState(true);
   const [compactMode, setCompactMode] = useState(false);
@@ -596,17 +607,24 @@ export default function App() {
           {/* Global controls */}
           <div className="hidden md:flex items-center gap-5">
             <div className="flex items-center gap-2.5">
-              <span className="text-xs text-muted-foreground font-mono">Monitor</span>
-              <Toggle checked={globalMonitor} onChange={setGlobalMonitor} color="#00d9ff" size="sm" />
+              <span className={`text-xs font-mono ${isViewer ? 'text-slate-500' : 'text-muted-foreground'}`}>Monitor</span>
+              <Toggle checked={globalMonitor} onChange={setGlobalMonitor} color="#00d9ff" size="sm" disabled={isViewer} />
             </div>
             <div className="flex items-center gap-2.5">
-              <span className="text-xs text-muted-foreground font-mono">ML Engine</span>
-              <Toggle checked={mlEnabled} onChange={setMlEnabled} color="#a78bfa" size="sm" />
+              <span className={`text-xs font-mono ${isViewer ? 'text-slate-500' : 'text-muted-foreground'}`}>ML Engine</span>
+              <Toggle checked={mlEnabled} onChange={setMlEnabled} color="#a78bfa" size="sm" disabled={isViewer} />
             </div>
             <div className="flex items-center gap-2.5">
-              <span className="text-xs text-muted-foreground font-mono">Auto-remediate</span>
-              <Toggle checked={autoRemediate} onChange={setAutoRemediate} color="#34d399" size="sm" />
+              <span className={`text-xs font-mono ${isViewer ? 'text-slate-500' : 'text-muted-foreground'}`}>Auto-remediate</span>
+              <Toggle checked={autoRemediate} onChange={setAutoRemediate} color="#34d399" size="sm" disabled={isViewer} />
             </div>
+            
+            {isViewer && (
+              <div className="flex items-center gap-1.5 text-xs text-amber-500/80 bg-amber-500/10 px-2 py-1 rounded-md border border-amber-500/20 ml-2">
+                <Shield className="w-3 h-3" />
+                View Only
+              </div>
+            )}
           </div>
 
           {/* Region selector */}

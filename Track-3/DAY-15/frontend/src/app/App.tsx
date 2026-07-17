@@ -1,5 +1,6 @@
 import { Routes, Route } from "react-router";
 import HeroPage from "../pages/HeroPage";
+import RequestAccessPage from "../pages/RequestAccessPage";
 import Dashboard from "../pages/Dashboard";
 import ModelsPage from "../pages/ModelsPage";
 import SettingsPage from "../pages/SettingsPage";
@@ -11,6 +12,7 @@ export default function App() {
   return (
     <Routes>
       <Route path="/" element={<HeroPage />} />
+      <Route path="/request-access" element={<RequestAccessPage />} />
       <Route element={<Layout />}>
         <Route path="/dashboard" element={<Dashboard />} />
         <Route path="/models" element={<ModelsPage />} />

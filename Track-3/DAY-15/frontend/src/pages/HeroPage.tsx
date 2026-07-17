@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { motion } from "motion/react";
-import { useNavigate } from "react-router";
+import { useNavigate, Link } from "react-router";
 import { Activity, Shield, Zap } from "lucide-react";
 
 export default function HeroPage() {
@@ -36,8 +36,7 @@ export default function HeroPage() {
       const data = await response.json();
 
       if (response.ok) {
-        // Here you would typically save the auth token or user state
-        // localStorage.setItem("user", JSON.stringify(data.user));
+        localStorage.setItem("user", JSON.stringify(data.user));
         navigate("/dashboard");
       } else {
         setError(data.error || "Invalid email or password.");
@@ -165,6 +164,12 @@ export default function HeroPage() {
                 >
                   {isLoggingIn ? "Authenticating..." : "Enter Dashboard"}
                 </button>
+
+                <div className="text-center mt-2">
+                  <p className="text-sm text-slate-400">
+                    Don't have access? <Link to="/request-access" className="text-[#00d9ff] hover:underline">Request Access here.</Link>
+                  </p>
+                </div>
               </form>
             </div>
           </motion.div>

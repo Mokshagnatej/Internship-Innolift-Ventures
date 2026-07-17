@@ -1,12 +1,25 @@
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "motion/react";
+import { useNavigate } from "react-router";
 import { Bell, Key, Shield, User, Database, Cpu, Save, CheckCircle2, DollarSign, Clock, CreditCard, Plus } from "lucide-react";
 
 type TabId = "aws" | "alerts" | "users" | "security" | "models" | "billing";
 
 export default function SettingsPage() {
+  const navigate = useNavigate();
   const [activeTab, setActiveTab] = useState<TabId>("aws");
   const [saved, setSaved] = useState(false);
+
+  // Route Protection: Prevent Viewers from accessing Settings
+  useEffect(() => {
+    const userStr = localStorage.getItem("user");
+    if (userStr) {
+      const user = JSON.parse(userStr);
+      if (user.role === 'viewer') {
+        navigate("/dashboard", { replace: true });
+      }
+    }
+  }, [navigate]);
 
   const handleSave = () => {
     setSaved(true);
